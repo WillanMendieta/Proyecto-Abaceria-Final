@@ -11,7 +11,6 @@ package modelo;
  */
 public class PAPAS {
    private PAPAS(){
-       System.out.println("paaaaaa nuevo willan"); 
    }
 
 }
