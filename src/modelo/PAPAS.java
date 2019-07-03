@@ -10,5 +10,8 @@ package modelo;
  * @author Estudiante
  */
 public class PAPAS {
-    
+   private PAPAS(){
+       System.out.println("paaaaaa"); 
+   }
+
 }
