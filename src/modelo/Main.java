@@ -10,12 +10,11 @@ import javax.swing.UIManager;
 
 /**
  *
- * @author NM
+ * @author steve
  */
 public class Main {
     public static void main(String[] args) {
-        
-        System.out.println("ojala maC");
+
              try{
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
             
