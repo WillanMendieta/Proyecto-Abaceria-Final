@@ -10,7 +10,7 @@ import javax.swing.UIManager;
 
 /**
  *
- * @author steve
+ * @author NM
  */
 public class Main {
     public static void main(String[] args) {
