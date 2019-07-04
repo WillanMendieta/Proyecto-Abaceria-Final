@@ -21,6 +21,7 @@ public class GestionUsuario {
           System.out.println(Usuario); 
            System.out.println("esta en la verificacion de null");
            System.out.println(re);
+           
           return re ;
           
            
