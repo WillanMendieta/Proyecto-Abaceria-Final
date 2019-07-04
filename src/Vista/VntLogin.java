@@ -103,7 +103,10 @@ public class VntLogin extends JFrame implements ActionListener{
           switch(comando){
            case"Iniciar Sesión":
             llamarVentanaPrincipal();
-           
+             System.out.println("esta es la contra ya convertida para ussarse");
+         String valorPass = new String(Password.getPassword());      
+ System.out.println(valorPass);
+             System.out.println("******************************************");
              
             default:
                 
@@ -113,10 +116,7 @@ public class VntLogin extends JFrame implements ActionListener{
 
     private void llamarVentanaPrincipal() {
         
-  System.out.println("esta es la contra ya convertida para ussarse");
-         String valorPass = new String(Password.getPassword());      
- System.out.println(valorPass);
-             System.out.println("******************************************");
+
         
         
         String u = usuarioIn.getText();
