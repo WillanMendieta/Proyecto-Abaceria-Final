@@ -17,10 +17,11 @@ public class Main {
         
         
         System.out.println("Tonto quien es el papa  ");
-        
+        System.out.println("maaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 
              try{
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+            
             
             /**
              * "com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel"
