@@ -20,6 +20,7 @@ public class GestionUsuario {
        if( Usuario == null){
           System.out.println(Usuario); 
            System.out.println("esta en la verificacion de null");
+           System.out.println("eliminar");
            System.out.println(re);
            
           return re ;
