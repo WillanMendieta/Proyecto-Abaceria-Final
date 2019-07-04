@@ -21,6 +21,7 @@ import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 /**
@@ -29,10 +30,11 @@ import javax.swing.JTextField;
  */
 public class VntLogin extends JFrame implements ActionListener{
  
+      private javax.swing.JPasswordField jPassword;
    
         
     private JTextField usuarioIn;
-    private JTextField pasword;
+    private JPasswordField Password;
     public static JDesktopPane escritorio;
     
     
@@ -71,11 +73,18 @@ public class VntLogin extends JFrame implements ActionListener{
 	gb.gridy=2;
         Contraseña.setForeground(Color.WHITE);
 	imagenFondo.add(Contraseña, gb);
+        
         //Esaco en blanco para ingresar la contraseña
-        pasword = new JTextField(20);
+        Password = new JPasswordField(20); 
+
 	gb.gridx=0;
 	gb.gridy=3;
-	imagenFondo.add(pasword, gb);
+	imagenFondo.add(Password, gb);
+        
+       
+//Si imprimes ahora valorPass, te devolvera el valor real que se ha
+// ingresado dentro del txtPasswordField
+        
         //boton de iniciar sesion 
         JButton iniciar= new JButton("Iniciar Sesión");
 	gb.gridx=0;
@@ -96,7 +105,6 @@ public class VntLogin extends JFrame implements ActionListener{
             llamarVentanaPrincipal();
            
              
-                
             default:
                 
                 break;
@@ -104,6 +112,13 @@ public class VntLogin extends JFrame implements ActionListener{
     }
 
     private void llamarVentanaPrincipal() {
+        
+  System.out.println("esta es la contra ya convertida para ussarse");
+         String valorPass = new String(Password.getPassword());      
+ System.out.println(valorPass);
+             System.out.println("******************************************");
+        
+        
         String u = usuarioIn.getText();
      
          GestionUsuario gestion = new GestionUsuario();
