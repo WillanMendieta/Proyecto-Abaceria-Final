@@ -5,6 +5,8 @@
  */
 package Vista;
 
+import Controlador.GestionUsuario;
+import com.sun.imageio.plugins.jpeg.JPEG;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -26,7 +28,9 @@ import javax.swing.JTextField;
  * @author steve
  */
 public class VntLogin extends JFrame implements ActionListener{
-
+ 
+   
+        
     private JTextField usuarioIn;
     private JTextField pasword;
     public static JDesktopPane escritorio;
@@ -102,22 +106,13 @@ public class VntLogin extends JFrame implements ActionListener{
     private void llamarVentanaPrincipal() {
         String u = usuarioIn.getText();
      
-        if(u.equals("1") ){
-                VntMenuPrincipalAdministrador  menu1=new VntMenuPrincipalAdministrador();
-                menu1.setVisible(true);
-                setVisible(false);
-            }
-        else if(u.equals("2") ){
-                VntMenuPrincipalEmpleado  menu=new VntMenuPrincipalEmpleado();
-                menu.setVisible(true);
-                setVisible(false);
-        }
-        else {
-                JFrame frame = new JFrame();
-                JOptionPane.showMessageDialog(frame,"Usuario Incorrecto");
-           }
+         GestionUsuario gestion = new GestionUsuario();
+        gestion.VerificarUsuario(u);
         
-             
+        VntMenuPrincipalAdministrador VenanaP= new VntMenuPrincipalAdministrador(u);
+        
+        VenanaP.setVisible(true);
+        setVisible(false);
             
             
     }

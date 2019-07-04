@@ -169,8 +169,9 @@ public class VntActualizarDatosCliente extends JFrame implements ActionListener 
 }
 
     private void Regresar() {
-           VntMenuPrincipalAdministrador  menu=new VntMenuPrincipalAdministrador();
-               menu.setVisible(true);
+        String u = null;
+          VntMenuPrincipalAdministrador  menu=new VntMenuPrincipalAdministrador(u);
+              menu.setVisible(true);
                setVisible(false);
     }
 

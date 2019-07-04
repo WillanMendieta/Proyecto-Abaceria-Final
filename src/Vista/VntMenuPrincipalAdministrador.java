@@ -5,6 +5,7 @@
  */
 package Vista;
 
+import Controlador.GestionUsuario;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -35,11 +36,24 @@ import javax.swing.SwingConstants;
 public class VntMenuPrincipalAdministrador extends JFrame implements ActionListener {
 public static JDesktopPane escritorio;
     
-   public VntMenuPrincipalAdministrador(){
-    Componentes();
+boolean  TipoUsuario;
+   public VntMenuPrincipalAdministrador(String u){
+       GestionUsuario gestion = new GestionUsuario();
+        TipoUsuario = gestion.VerificarUsuario(u);
+       
+    Componentes(u);
 }
+
+   
+
  
-    private void Componentes() {
+    private void Componentes(String u) {
+        
+        
+        
+        
+        
+        
         setTitle("Menu");
 	setSize(1050,670);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -72,14 +86,16 @@ public static JDesktopPane escritorio;
         //se da la accion
         GestorProducto.addActionListener(this);
         GestorProducto.setActionCommand("Productos");
-	imagenTablero.add(GestorProducto, gb);
+	if(TipoUsuario == true){
+            imagenTablero.add(GestorProducto, gb);
+        }
         
         
         // se ingresa el iono que va en el boton
        ImageIcon iconoEm = new ImageIcon("src/ima/icono/e.png");
        // Se da las dimenciones del icono que va en el boton
        ImageIcon iconoEmple = new ImageIcon(iconoEm.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_DEFAULT));
-        JButton AgregarEmpleado= new JButton("Agregar Empleado");
+        JButton AgregarEmpleado= new JButton("Gestion Empleado");
         //Se agrega el icono al boton
         AgregarEmpleado.setIcon(iconoEmple);
         //Se da La ubicacion del texto en el boton
@@ -89,8 +105,11 @@ public static JDesktopPane escritorio;
 	gb.gridy=0;
         gb.weightx=1;
         AgregarEmpleado.addActionListener(this);
-        AgregarEmpleado.setActionCommand("Agregar Empleado");
-	imagenTablero.add(AgregarEmpleado, gb);
+        AgregarEmpleado.setActionCommand("Gestion Empleado");
+        if(TipoUsuario == true){
+         imagenTablero.add(AgregarEmpleado, gb);   
+        }
+	
         
         // se ingresa el iono que va en el boton
        ImageIcon iconoSto = new ImageIcon("src/ima/icono/s.png");
@@ -108,49 +127,16 @@ public static JDesktopPane escritorio;
         gb.fill=GridBagConstraints.BOTH;
         Stock.addActionListener(this);
         Stock.setActionCommand("Stock");
-	imagenTablero.add(Stock, gb);
-        
-         // se ingresa el iono que va en el boton
-       ImageIcon iconoEli = new ImageIcon("src/ima/icono/Eli.png");
-       // Se da las dimenciones del icono que va en el boton
-       ImageIcon iconoEliminarEmpleado = new ImageIcon(iconoEli.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_DEFAULT));
-        JButton EliminarEmpleado= new JButton("Eliminar Empleado");
-        //Se agrega el icono al boton
-        EliminarEmpleado.setIcon(iconoEliminarEmpleado);
-        //Se da La ubicacion del texto en el boton
-        EliminarEmpleado.setHorizontalTextPosition( SwingConstants.CENTER );
-        EliminarEmpleado.setVerticalTextPosition( SwingConstants.BOTTOM );
-	gb.gridx=1;
-	gb.gridy=1;
-        gb.weightx=1;
-        EliminarEmpleado.addActionListener(this);
-        EliminarEmpleado.setActionCommand("Eliminar Empleado");
-	imagenTablero.add(EliminarEmpleado, gb);
-        
-        
-        
-        // se ingresa el iono que va en el boton
-       ImageIcon iconoAcCli = new ImageIcon("src/ima/icono/cli.png");
-       // Se da las dimenciones del icono que va en el boton
-       ImageIcon iconoACCliente = new ImageIcon(iconoAcCli.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_DEFAULT));
-        JButton ActualizarDatosCliente= new JButton("Actualizar Datos Cliente");
-         //Se agrega el icono al boton
-        ActualizarDatosCliente.setIcon(iconoACCliente);
-        //Se da La ubicacion del texto en el boton
-        ActualizarDatosCliente.setHorizontalTextPosition( SwingConstants.CENTER );
-        ActualizarDatosCliente.setVerticalTextPosition( SwingConstants.BOTTOM );
-	gb.gridx=0;
-	gb.gridy=1;
-        gb.weightx=1;
-        ActualizarDatosCliente.addActionListener(this);
-        ActualizarDatosCliente.setActionCommand("ActualizarDatosCliente");
-	imagenTablero.add(ActualizarDatosCliente, gb);
+        if(TipoUsuario == true){
+            imagenTablero.add(Stock, gb);
+        }
+	
         
         // se ingresa el iono que va en el boton
        ImageIcon iconoCli = new ImageIcon("src/ima/icono/cli.png");
        // Se da las dimenciones del icono que va en el boton
        ImageIcon iconoCliente = new ImageIcon(iconoCli.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_DEFAULT));
-        JButton AgregarCliente= new JButton("Agregar Cliente");
+        JButton AgregarCliente= new JButton("Clientes");
          //Se agrega el icono al boton
         AgregarCliente.setIcon(iconoCliente);
         //Se da La ubicacion del texto en el boton
@@ -160,7 +146,7 @@ public static JDesktopPane escritorio;
 	gb.gridy=2;
         gb.weightx=1;
         AgregarCliente.addActionListener(this);
-        AgregarCliente.setActionCommand("Agregar Cliente");
+        AgregarCliente.setActionCommand("Cliente");
 	imagenTablero.add(AgregarCliente, gb);
         
        // se ingresa el iono que va en el boton
@@ -230,17 +216,15 @@ cp.add(imagenTablero);
             case "Productos":
                 llamarGestionProductos();
                 break;
-            case "Agregar Empleado":
-                llamarAgregarEmpleado();
+            case "Gestion Empleado":
+                llamarVntEmpleado();
                 break;
             case "Stock":
                 listarStock();
                 break;
-            case "Eliminar Empleado":
-                llamarEliminarEmpleado();
-                break;
-            case "Agregar Cliente":
-                llamarAgregarCliente();
+            
+            case "Cliente":
+                llamarVntCliente();
                 break;
             case "RealizarFactura":
                 llamarRealizarFactura();
@@ -248,9 +232,7 @@ cp.add(imagenTablero);
             case "Anular Factura":
                 AnularFactura();
                 break;
-             case "ActualizarDatosCliente":
-                llamarActualizarDatosCliente();
-                break;
+            
             case "Salir":
                 llamarSalir();
                 break;
@@ -266,10 +248,12 @@ cp.add(imagenTablero);
                setVisible(false);
     }
 
-    private void llamarAgregarEmpleado() {
-         VntEmpleado empleado = new VntEmpleado();
+    private void llamarVntEmpleado() {
+        VntMenuEmpleado  empleado=new VntMenuEmpleado();
                empleado.setVisible(true);
                setVisible(false);
+        
+         
     }
 
     private void listarStock() {
@@ -280,24 +264,14 @@ cp.add(imagenTablero);
         
     }
     
-      private void llamarActualizarDatosCliente() {
-        VntActualizarDatosCliente actualizaCli = new VntActualizarDatosCliente();
-        actualizaCli.setVisible(true);
-        setVisible(false);
-   }
 
-    private void llamarEliminarEmpleado() {
-        
-        VntEliminarEmpleado empleadoElimina = new VntEliminarEmpleado();
-               empleadoElimina.setVisible(true);
-               setVisible(false);
-  
-    }
 
-    private void llamarAgregarCliente() {
- VntCliente  cliente=new VntCliente();
-               cliente.setVisible(true);
+
+    private void llamarVntCliente() {
+        VntMenuCliente Cliente=new VntMenuCliente();
+               Cliente.setVisible(true);
                setVisible(false);
+ 
     }
 
     private void llamarRealizarFactura() {
@@ -308,6 +282,7 @@ cp.add(imagenTablero);
     }
 
     private void AnularFactura() {
+       
       VntAnularFactura  anular=new VntAnularFactura();
                anular.setVisible(true);
                setVisible(false); 

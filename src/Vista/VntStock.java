@@ -69,7 +69,8 @@ public class VntStock extends JFrame implements ActionListener{
     }}
     
         private void Regresar() {
-        VntMenuPrincipalAdministrador  menu=new VntMenuPrincipalAdministrador();
+            String u = null;
+        VntMenuPrincipalAdministrador  menu=new VntMenuPrincipalAdministrador(u);
                menu.setVisible(true);
                setVisible(false);
     

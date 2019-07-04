@@ -5,6 +5,7 @@
  */
 package Vista;
 
+import Controlador.GestionUsuario;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.GridBagConstraints;
@@ -134,7 +135,8 @@ public class VntAnularFactura extends JFrame implements ActionListener {
     }
 
     private void Regresar() {
-         VntMenuPrincipalAdministrador  menu=new VntMenuPrincipalAdministrador();
+        String u = null;
+         VntMenuPrincipalAdministrador  menu =new VntMenuPrincipalAdministrador(u);
                menu.setVisible(true);
                setVisible(false);
     

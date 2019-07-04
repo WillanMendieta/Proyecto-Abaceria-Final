@@ -5,6 +5,7 @@
  */
 package Vista;
 
+import Controlador.GestionUsuario;
 import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -150,7 +151,7 @@ public class VntGestionPro extends JFrame implements ActionListener {
 	gb.gridy=2;
         gb.weightx=1;
         Regresar.addActionListener(this);
-        Regresar.setActionCommand("Anular Factura");
+        Regresar.setActionCommand("regresar");
         imagenTablero.add(Regresar,gb);
   
  
@@ -179,7 +180,7 @@ cp.add(imagenTablero);
             case "ActualizarDatosProducto":
                 llamarActualizarDatosProducto();
                 break;
-            case "Anular Factura":
+            case "regresar":
                 Regresar();
                 break;
         
@@ -224,8 +225,8 @@ cp.add(imagenTablero);
     }
 
     private void Regresar() {
-        
-        VntMenuPrincipalAdministrador  menu=new VntMenuPrincipalAdministrador();
+        String u = null;
+        VntMenuPrincipalAdministrador  menu=new VntMenuPrincipalAdministrador(u);
                menu.setVisible(true);
                setVisible(false);
     }
