@@ -17,7 +17,7 @@ public class Main {
         
         
         System.out.println("Tonto quien es el papa  ");
-        System.out.println("maaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        System.out.println("ok ok ok ok");
 
              try{
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
