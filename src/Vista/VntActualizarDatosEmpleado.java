@@ -12,32 +12,31 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 /**
  *
  * @author steve
  */
-public class VntAgregarProducto extends JFrame implements ActionListener  {
+public class VntActualizarDatosEmpleado extends JFrame implements ActionListener {
     
-    private JTextField codigo;
+    private JTextField cedula;
     private JTextField nombre;
-    private JComboBox categoria;
-    private JTextField precioTex;
-    private JRadioButton ivaTex;
+    private JTextField apellido;
+    private JTextField usuario;
+    private JTextField contra;
     
-    public VntAgregarProducto(){
+    public VntActualizarDatosEmpleado(){
         componentes();
     }
 
     private void componentes() {
-      setTitle("Agregar Producto");
+      setTitle("Registrar Cliente");
         
 	setSize(450,350);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -45,7 +44,7 @@ public class VntAgregarProducto extends JFrame implements ActionListener  {
 	Container cp= getContentPane();
         
         
-         ImageIcon ICONO = new ImageIcon("src/ima/inf"); 
+         ImageIcon ICONO = new ImageIcon("src/ima/in1f"); 
         JLabel imagenFondo = new JLabel(ICONO);
         imagenFondo.setLayout(new java.awt.GridBagLayout());
         
@@ -53,21 +52,33 @@ public class VntAgregarProducto extends JFrame implements ActionListener  {
         
         //Etiquetas para el la ventana de Registrar Cliente
         
-        JLabel codigoJ = new JLabel("Codigo:");
+        JLabel cedulaJ = new JLabel("Cedula:");
 	gb.gridx=0;
 	gb.gridy=0;
-        codigoJ.setForeground(Color.red);
-	imagenFondo.add(codigoJ, gb);
+        cedulaJ.setForeground(Color.red);
+	imagenFondo.add(cedulaJ, gb);
         // Espacio en blanco para ingresar la cedula
-        codigo= new JTextField(20);
+        cedula= new JTextField(20);
 	gb.gridx=1;
 	gb.gridy=0;
-        codigo.setEditable(false);
-	imagenFondo.add(codigo, gb);
+	imagenFondo.add(cedula, gb);
         
+            JButton AgregarProveedor= new JButton("Buscar Cliente");
+       //Se agrega el icono al boton
+     //  AgregarProveedor.setIcon(iconoProducto);
+       //Se da La ubicacion del texto en el boton
+        AgregarProveedor.setHorizontalTextPosition( SwingConstants.CENTER );
+        AgregarProveedor.setVerticalTextPosition( SwingConstants.BOTTOM );
+	gb.gridx=2;
+	gb.gridy=0;
+        gb.fill=GridBagConstraints.BOTH;
+        //se da la accion
+        AgregarProveedor.addActionListener(this);
+        AgregarProveedor.setActionCommand("buscar");
+	imagenFondo.add(AgregarProveedor, gb);
         
         //Etiqueta con el anunciado los nombres
-        JLabel nombreJ = new JLabel("Nombre:");
+        JLabel nombreJ = new JLabel("Nombres:");
 	gb.gridx=0;
 	gb.gridy=1;
         nombreJ.setForeground(Color.red);
@@ -79,55 +90,54 @@ public class VntAgregarProducto extends JFrame implements ActionListener  {
 	imagenFondo.add(nombre, gb);
         
         //Etiqueta con el anunciado de los apellidos
-        JLabel categoriaJ = new JLabel("Categoria:");
+        JLabel apellidoJ = new JLabel("Apellidos:");
 	gb.gridx=0;
 	gb.gridy=2;
-        categoriaJ.setForeground(Color.red);
-	imagenFondo.add(categoriaJ, gb);
+        apellidoJ.setForeground(Color.red);
+	imagenFondo.add(apellidoJ, gb);
         //Espacio en blanco para ingresar los apellidos
-        categoria= new JComboBox();
-        categoria.addItem("Ejemplo");
+        apellido = new JTextField(20);
 	gb.gridx=1;
 	gb.gridy=2;
-	imagenFondo.add(categoria, gb);
+	imagenFondo.add(apellido, gb);
         
         //Etiqueta con el anunciado del telefono convencional
-        JLabel precioJ = new JLabel("Precio");
+        JLabel usuarioJ = new JLabel("Usuario:");
 	gb.gridx=0;
 	gb.gridy=3;
-        precioJ.setForeground(Color.red);
-	imagenFondo.add(precioJ, gb);
+        usuarioJ.setForeground(Color.red);
+	imagenFondo.add(usuarioJ, gb);
         //Espacio en blanco para ingresar el telefono convencional
-        precioTex = new JTextField(20);
+        usuario = new JTextField(20);
 	gb.gridx=1;
 	gb.gridy=3;
-	imagenFondo.add(precioTex, gb);
+	imagenFondo.add(usuario, gb);
         
         
            //Etiqueta con el anunciado de telefono celular
-        JLabel iva = new JLabel("I.V.A:");
+        JLabel contraseñaJ = new JLabel("Contraseña:");
 	gb.gridx=0;
 	gb.gridy=4;
-        iva.setForeground(Color.red);
-	imagenFondo.add(iva, gb);
+        contraseñaJ.setForeground(Color.red);
+	imagenFondo.add(contraseñaJ, gb);
         //Espacio en blanco para ingresar el telefono celular
-        ivaTex = new JRadioButton();
+        contra= new JTextField(20);
 	gb.gridx=1;
 	gb.gridy=4;
-        ivaTex.addActionListener(this);
-        ivaTex.setActionCommand("iva Activado");
-	imagenFondo.add(ivaTex, gb);
+	imagenFondo.add(contra, gb);
         
-     
+    
+        
+        
         
         JPanel panelBotones = new JPanel();
         //boton de Registar
-        JButton agregarProducto = new JButton("Agregar Producto");
+        JButton agregarEmpleado= new JButton("Agregar Empleado");
 	gb.gridx=0;
 	gb.gridy=0;
-        agregarProducto.addActionListener(this);
-        agregarProducto.setActionCommand("agregarProducto");
-	panelBotones.add(agregarProducto, gb);
+        agregarEmpleado.addActionListener(this);
+        agregarEmpleado.setActionCommand("agregarEmpleado");
+	panelBotones.add(agregarEmpleado, gb);
         
           //boton de Cancelar 
         JButton Cancelar= new JButton("Cancelar");
@@ -136,7 +146,7 @@ public class VntAgregarProducto extends JFrame implements ActionListener  {
         Cancelar.addActionListener(this);
         Cancelar.setActionCommand("Cancelar");
 	panelBotones.add(Cancelar, gb);
-        
+        panelBotones.setBackground(Color.red);
         gb.gridx=1;
 	gb.gridy=5;
        imagenFondo.add(panelBotones,gb);
@@ -148,23 +158,13 @@ public class VntAgregarProducto extends JFrame implements ActionListener  {
         String comando = e.getActionCommand();
         
         switch(comando){
-            case "agregarProducto":
-                llamarMetodoAgregarProducto();
+            case "agregarEmpleado":
+                llamarMetodoAgregarEmpleado();
                 break;
              case "Cancelar":
                 Regresar();
                 break;
-              case "iva Activado":
-                  System.out.println("accion del iva");
-                  
-                  if(ivaTex.isSelected()==true) {
-                      System.out.println("esta activadoo el iva");
-                      
-                  } else if (ivaTex.isSelected()==true){
-                      System.out.println("se desactivo el iva");
-                  
-              }
-                  break;
+        
             default:
                 break;
         
@@ -173,20 +173,23 @@ public class VntAgregarProducto extends JFrame implements ActionListener  {
 }
 
     private void Regresar() {
-            VntGestionPro  menuP=new VntGestionPro();
-               menuP.setVisible(true);
+        String u = null;
+         VntMenuPrincipalAdministrador  menu=new VntMenuPrincipalAdministrador(u);
+               menu.setVisible(true);
                setVisible(false);
     }
 
-    private void llamarMetodoAgregarProducto() {
-          String u = codigo.getText();
+    private void llamarMetodoAgregarEmpleado() {
+        
+          String u = cedula.getText();
             if(u.equals("1") ){
                 JFrame frame = new JFrame();
-                JOptionPane.showMessageDialog(frame,"Producto Agregado");
+                JOptionPane.showMessageDialog(frame,"Empleado Agregado");
             } else {
                 JFrame frame = new JFrame();
-                JOptionPane.showMessageDialog(frame,"Producto no Agregado");
+                JOptionPane.showMessageDialog(frame,"Empleado no agregado");
             }
+  
     }
     
 }

@@ -27,8 +27,10 @@ import javax.swing.SwingConstants;
 public class VntIngresarProducto extends JFrame implements ActionListener  {
     
     private JTextField codigoFactura;
-    private JTextField nombre;
+    private JTextField Ruc;
+    private JTextField proveedor;
     private JTextField codigoPro;
+    private JTextField nombreProducto;
     private JTextField cantidad;
     
     public VntIngresarProducto(){
@@ -63,31 +65,74 @@ public class VntIngresarProducto extends JFrame implements ActionListener  {
 	gb.gridy=0;
 	imagenFondo.add(codigoFactura, gb);
         
+        //jlabel de ruc
+        JLabel rucJ = new JLabel("Ruc:");
+	gb.gridx=0;
+	gb.gridy=1;
+        rucJ.setForeground(Color.red);
+	imagenFondo.add(rucJ, gb);
+        // Espacio en blanco para ingresar el ruc
+        Ruc= new JTextField(20);
+	gb.gridx=1;
+	gb.gridy=1;
+	imagenFondo.add(Ruc, gb);
+        
+            //jlabel de Proveedor
+        JLabel proveedorJ = new JLabel("Proveedor:");
+	gb.gridx=0;
+	gb.gridy=2;
+        proveedorJ.setForeground(Color.red);
+	imagenFondo.add(proveedorJ, gb);
+        // Espacio en blanco para ingresar el ruc
+        proveedor= new JTextField(20);
+	gb.gridx=1;
+	gb.gridy=2;
+	imagenFondo.add(proveedor, gb);
+        
+      //    // se ingresa el iono que va en el boton
+      // ImageIcon iconoPro = new ImageIcon("src/ima/icono/buscar.png");
+       // Se da las dimenciones del icono que va en el boton
+       //ImageIcon iconoProducto = new ImageIcon(iconoPro.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_DEFAULT));
+       //se insatancia el boton
+       JButton AgregarProveedor= new JButton("Buscar Proveedor");
+       //Se agrega el icono al boton
+     //  AgregarProveedor.setIcon(iconoProducto);
+       //Se da La ubicacion del texto en el boton
+        AgregarProveedor.setHorizontalTextPosition( SwingConstants.CENTER );
+        AgregarProveedor.setVerticalTextPosition( SwingConstants.BOTTOM );
+	gb.gridx=2;
+	gb.gridy=1;
+        gb.fill=GridBagConstraints.BOTH;
+        //se da la accion
+        AgregarProveedor.addActionListener(this);
+        AgregarProveedor.setActionCommand("buscar");
+	imagenFondo.add(AgregarProveedor, gb);
+        
         //Etiqueta con el anunciado de los apellidos
         JLabel codigoproJ = new JLabel("Codigo Producto:");
 	gb.gridx=0;
-	gb.gridy=1;
+	gb.gridy=3;
         codigoproJ.setForeground(Color.red);
 	imagenFondo.add(codigoproJ, gb);
         //Espacio en blanco para ingresar los apellidos
         codigoPro= new JTextField(20);
 	gb.gridx=1;
-	gb.gridy=1;
+	gb.gridy=3;
 	imagenFondo.add(codigoPro, gb);
         
          // se ingresa el iono que va en el boton
-       ImageIcon iconoPro = new ImageIcon("src/ima/icono/buscar.png");
+       //ImageIcon iconoPro = new ImageIcon("src/ima/icono/buscar.png");
        // Se da las dimenciones del icono que va en el boton
-       ImageIcon iconoProducto = new ImageIcon(iconoPro.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_DEFAULT));
+      // ImageIcon iconoProducto = new ImageIcon(iconoPro.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_DEFAULT));
        //se insatancia el boton
        JButton AgregarProducto= new JButton("Buscar");
        //Se agrega el icono al boton
-       AgregarProducto.setIcon(iconoProducto);
+     //  AgregarProducto.setIcon(iconoProducto);
        //Se da La ubicacion del texto en el boton
         AgregarProducto.setHorizontalTextPosition( SwingConstants.CENTER );
         AgregarProducto.setVerticalTextPosition( SwingConstants.BOTTOM );
 	gb.gridx=2;
-	gb.gridy=1;
+	gb.gridy=2;
         gb.fill=GridBagConstraints.BOTH;
         //se da la accion
         AgregarProducto.addActionListener(this);
@@ -98,35 +143,35 @@ public class VntIngresarProducto extends JFrame implements ActionListener  {
          //Etiqueta con el anunciado los nombres
         JLabel nombreJ = new JLabel("Nombre:");
 	gb.gridx=0;
-	gb.gridy=2;
+	gb.gridy=4;
         nombreJ.setForeground(Color.red);
 	imagenFondo.add(nombreJ, gb);
         //Espacio en blanco para ingresar los nombres
-        nombre = new JTextField(20);
+        nombreProducto = new JTextField(20);
 	gb.gridx=1;
-	gb.gridy=2;
-	imagenFondo.add(nombre, gb);
+	gb.gridy=4;
+	imagenFondo.add(nombreProducto, gb);
         
         //Etiqueta con el anunciado del telefono convencional
         JLabel cantidadJ = new JLabel("Cantidad:");
 	gb.gridx=0;
-	gb.gridy=3;
+	gb.gridy=5;
         cantidadJ.setForeground(Color.red);
 	imagenFondo.add(cantidadJ, gb);
         //Espacio en blanco para ingresar el telefono convencional
         cantidad = new JTextField(20);
 	gb.gridx=1;
-	gb.gridy=3;
+	gb.gridy=5;
 	imagenFondo.add(cantidad, gb);
         
         TextArea area1= new TextArea(5,40);
         gb.gridx=1;
-	gb.gridy=4;
+	gb.gridy=6;
         imagenFondo.add(area1, gb);
         
         JButton agregarProducto1 = new JButton("Agregar producto");
 	gb.gridx=0;
-	gb.gridy=4;
+	gb.gridy=6;
         agregarProducto1.addActionListener(this);
         agregarProducto1.setActionCommand("agregar1");
 	imagenFondo.add(agregarProducto1, gb);
@@ -150,7 +195,7 @@ public class VntIngresarProducto extends JFrame implements ActionListener  {
 	panelBotones.add(Cancelar, gb);
         //panelBotones.setBackground(Color.red);
         gb.gridx=1;
-	gb.gridy=5;
+	gb.gridy=7;
        imagenFondo.add(panelBotones,gb);
         cp.add(imagenFondo);
     }
@@ -169,7 +214,7 @@ public class VntIngresarProducto extends JFrame implements ActionListener  {
              case "agregar1":
                 codigoPro.setText("");
                 cantidad.setText("");
-                nombre.setText("");
+                nombreProducto.setText("");
                 JFrame frame1 = new JFrame();
                 JOptionPane.showMessageDialog(frame1,"Producto Agregado a Lista");
                 
@@ -177,7 +222,7 @@ public class VntIngresarProducto extends JFrame implements ActionListener  {
 
                  case "buscar":
                  if(u.equals("1") ){
-                nombre.setText("Papas");
+                nombreProducto.setText("Papas");
                 
             }else {
                 JFrame frame = new JFrame();

@@ -58,7 +58,7 @@ public class VntMenuCliente extends JFrame implements ActionListener {
         ActualizarDatosCliente.setHorizontalTextPosition( SwingConstants.CENTER );
         ActualizarDatosCliente.setVerticalTextPosition( SwingConstants.BOTTOM );
 	gb.gridx=0;
-	gb.gridy=1;
+	gb.gridy=0;
         gb.weightx=1;
         ActualizarDatosCliente.addActionListener(this);
         ActualizarDatosCliente.setActionCommand("ActualizarDatosCliente");
@@ -79,8 +79,8 @@ public class VntMenuCliente extends JFrame implements ActionListener {
         //Se da La ubicacion del texto en el boton
         AgregarCliente.setHorizontalTextPosition( SwingConstants.CENTER );
         AgregarCliente.setVerticalTextPosition( SwingConstants.BOTTOM );
-	gb.gridx=0;
-	gb.gridy=2;
+	gb.gridx=1;
+	gb.gridy=0;
         gb.weightx=1;
         AgregarCliente.addActionListener(this);
         AgregarCliente.setActionCommand("Agregar Cliente");
@@ -99,7 +99,7 @@ public class VntMenuCliente extends JFrame implements ActionListener {
         Regresar.setHorizontalTextPosition( SwingConstants.CENTER );
         Regresar.setVerticalTextPosition( SwingConstants.BOTTOM );
 	gb.gridx=2;
-	gb.gridy=2;
+	gb.gridy=0;
         gb.weightx=1;
         Regresar.addActionListener(this);
         Regresar.setActionCommand("regresar");

@@ -58,12 +58,29 @@ public class VntMenuEmpleado extends JFrame implements ActionListener{
         //Se da La ubicacion del texto en el boton
         AgregarEmpleado.setHorizontalTextPosition( SwingConstants.CENTER );
         AgregarEmpleado.setVerticalTextPosition( SwingConstants.BOTTOM );
-	gb.gridx=1;
+	gb.gridx=0;
 	gb.gridy=0;
         gb.weightx=1;
         AgregarEmpleado.addActionListener(this);
         AgregarEmpleado.setActionCommand("Agregar Empleado");
 	imagenTablero.add(AgregarEmpleado, gb);
+        
+        // se ingresa el iono que va en el boton
+       ImageIcon iconoAc = new ImageIcon("src/ima/icono/e.png");
+       // Se da las dimenciones del icono que va en el boton
+       ImageIcon iconoAct = new ImageIcon(iconoAc.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_DEFAULT));
+        JButton ActualizarEmpleado= new JButton("Actualizar Datos Empleados");
+        //Se agrega el icono al boton
+        ActualizarEmpleado.setIcon(iconoEmple);
+        //Se da La ubicacion del texto en el boton
+        ActualizarEmpleado.setHorizontalTextPosition( SwingConstants.CENTER );
+        ActualizarEmpleado.setVerticalTextPosition( SwingConstants.BOTTOM );
+	gb.gridx=1;
+	gb.gridy=0;
+        gb.weightx=1;
+        ActualizarEmpleado.addActionListener(this);
+        ActualizarEmpleado.setActionCommand("ActualizarEmpleado");
+	imagenTablero.add( ActualizarEmpleado, gb);
         
         
         // se ingresa el iono que va en el boton
@@ -76,8 +93,8 @@ public class VntMenuEmpleado extends JFrame implements ActionListener{
         //Se da La ubicacion del texto en el boton
         EliminarEmpleado.setHorizontalTextPosition( SwingConstants.CENTER );
         EliminarEmpleado.setVerticalTextPosition( SwingConstants.BOTTOM );
-	gb.gridx=1;
-	gb.gridy=1;
+	gb.gridx=2;
+	gb.gridy=0;
         gb.weightx=1;
         EliminarEmpleado.addActionListener(this);
         EliminarEmpleado.setActionCommand("Eliminar Empleado");
@@ -95,8 +112,8 @@ public class VntMenuEmpleado extends JFrame implements ActionListener{
         //Se da La ubicacion del texto en el boton
         Regresar.setHorizontalTextPosition( SwingConstants.CENTER );
         Regresar.setVerticalTextPosition( SwingConstants.BOTTOM );
-	gb.gridx=2;
-	gb.gridy=2;
+	gb.gridx=3;
+	gb.gridy=0;
         gb.weightx=1;
         Regresar.addActionListener(this);
         Regresar.setActionCommand("regresar");
@@ -121,10 +138,14 @@ cp.add(imagenTablero);
         
          case "Eliminar Empleado":
                 llamarEliminarEmpleado();
-                
-                break;case "regresar":
+                break;
+          case "ActualizarEmpleado":
+                llamarActualizarEmpleado();
+                break;
+        case "regresar":
                 Regresar();
                 break;
+               
     }
     }
      private void llamarAgregarEmpleado() {
@@ -146,6 +167,13 @@ cp.add(imagenTablero);
         VntMenuPrincipalAdministrador  menu=new VntMenuPrincipalAdministrador(u);
                menu.setVisible(true);
                setVisible(false);
+    }
+
+    private void llamarActualizarEmpleado() {
+   VntActualizarDatosEmpleado empleadoActualiza = new VntActualizarDatosEmpleado();
+               empleadoActualiza.setVisible(true);
+               setVisible(false);
+    
     }
     
 }
