@@ -23,8 +23,8 @@ public class conexionDB {
     public void Conectar(){
         
         url="jdbc:oracle:thin:@localhost:1521:xe";
-        username="ADMINFINAL";
-        password="adminfinal";
+        username="sistemaABA";
+        password="admin01";
         
         try{
             
