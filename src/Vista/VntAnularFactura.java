@@ -18,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import modelo.Usuario;
 
 /**
  *
@@ -26,9 +27,11 @@ import javax.swing.JTextField;
 public class VntAnularFactura extends JFrame implements ActionListener {
     private JTextField codigo;
     private JTextField detalles;
+    Usuario user;
     
-    public VntAnularFactura(){
+    public VntAnularFactura( Usuario usuario){
         componentes();
+        user = usuario;
     }
 
     private void componentes() {
@@ -136,7 +139,7 @@ public class VntAnularFactura extends JFrame implements ActionListener {
 
     private void Regresar() {
         String u = null;
-         VntMenuPrincipalAdministrador  menu =new VntMenuPrincipalAdministrador(u);
+         VntMenuPrincipalAdministrador  menu =new VntMenuPrincipalAdministrador(user);
                menu.setVisible(true);
                setVisible(false);
     
@@ -155,8 +158,8 @@ public class VntAnularFactura extends JFrame implements ActionListener {
     
     }
 
-    private void verificarFactura() {
     
+    private void verificarFactura() {
      String u = codigo.getText();
             if(u.equals("1") ){
                 JFrame frame = new JFrame();

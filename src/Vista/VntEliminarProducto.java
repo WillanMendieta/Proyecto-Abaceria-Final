@@ -17,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import modelo.Usuario;
 
 /**
  *
@@ -26,9 +27,11 @@ public class VntEliminarProducto extends JFrame implements ActionListener {
     private JTextField codigo;
     private JTextField nombre;
     private JTextField detalles;
+    Usuario user;
     
-    public VntEliminarProducto(){
+    public VntEliminarProducto(Usuario usuario){
         componentes();
+        user = usuario;
     }
 
     private void componentes() {
@@ -148,7 +151,7 @@ public class VntEliminarProducto extends JFrame implements ActionListener {
     }
 
     private void Regresar() {
-         VntGestionPro  menuP=new VntGestionPro();
+         VntGestionPro  menuP=new VntGestionPro(user);
                menuP.setVisible(true);
                setVisible(false);
     

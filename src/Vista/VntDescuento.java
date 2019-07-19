@@ -17,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import modelo.Usuario;
 
 /**
  *
@@ -26,9 +27,11 @@ public class VntDescuento extends JFrame implements ActionListener {
     private JTextField codigo;
     private JTextField nombre;
     private JTextField descuento;
+    Usuario user;
     
-    public VntDescuento(){
+    public VntDescuento(Usuario usuario){
         componentes();
+        user = usuario;
     }
 
     private void componentes() {
@@ -149,7 +152,7 @@ public class VntDescuento extends JFrame implements ActionListener {
     }
 
     private void Regresar() {
-         VntGestionPro  menuP=new VntGestionPro();
+         VntGestionPro  menuP=new VntGestionPro(user);
                menuP.setVisible(true);
                setVisible(false);
     

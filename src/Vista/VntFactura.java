@@ -23,6 +23,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import modelo.Usuario;
 
 /**
  *
@@ -38,9 +39,11 @@ public class VntFactura extends JFrame implements ActionListener {
     private JTextField direccion;
     private JTextField codigoFc;
     private JTextField usuario;
+    Usuario user;
     
-    public  VntFactura(){
+    public  VntFactura(Usuario usuario){
         componenetes();
+        user = usuario;
        
     }
 
@@ -242,7 +245,7 @@ public class VntFactura extends JFrame implements ActionListener {
     }
         private void Regresar() {
             String u = null;
-        VntMenuPrincipalAdministrador  menu=new VntMenuPrincipalAdministrador(u);
+        VntMenuPrincipalAdministrador  menu=new VntMenuPrincipalAdministrador(user);
                menu.setVisible(true);
                setVisible(false);
     

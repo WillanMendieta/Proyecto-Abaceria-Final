@@ -17,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import modelo.Usuario;
 
 /**
  *
@@ -29,9 +30,11 @@ public class VntActualizarDatosProducto extends JFrame implements ActionListener
     private JTextField categoria;
     private JTextField stock;
     private JTextField precio;
+    Usuario user;
     
-    public VntActualizarDatosProducto(){
+    public VntActualizarDatosProducto(Usuario usuario){
         componentes();
+        user = usuario;
     }
 
     private void componentes() {
@@ -155,7 +158,7 @@ public class VntActualizarDatosProducto extends JFrame implements ActionListener
 }
 
     private void Regresar() {
-            VntGestionPro  menuP=new VntGestionPro();
+            VntGestionPro  menuP=new VntGestionPro(user);
                menuP.setVisible(true);
                setVisible(false);
     }

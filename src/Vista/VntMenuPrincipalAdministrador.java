@@ -27,6 +27,7 @@ import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import modelo.Usuario;
 
 
 /**
@@ -35,24 +36,22 @@ import javax.swing.SwingConstants;
  */
 public class VntMenuPrincipalAdministrador extends JFrame implements ActionListener {
 public static JDesktopPane escritorio;
+Usuario user;
     
 boolean  TipoUsuario;
-   public VntMenuPrincipalAdministrador(String u){
+
+   public VntMenuPrincipalAdministrador(Usuario usuario){
+       user = usuario;
        GestionUsuario gestion = new GestionUsuario();
-        TipoUsuario = gestion.VerificarUsuario(u);
+        //TipoUsuario = gestion.VerificarUsuario(u);
        
-    Componentes(u);
+    Componentes();
 }
 
    
 
  
-    private void Componentes(String u) {
-        
-        
-        
-        
-        
+    private void Componentes( ) {
         
         setTitle("Menu");
 	setSize(1050,670);
@@ -243,13 +242,13 @@ cp.add(imagenTablero);
     }
 
     private void llamarGestionProductos() {
-    VntGestionPro  producto=new VntGestionPro();
+    VntGestionPro  producto=new VntGestionPro(user);
                producto.setVisible(true);
                setVisible(false);
     }
 
     private void llamarVntEmpleado() {
-        VntMenuEmpleado  empleado=new VntMenuEmpleado();
+        VntMenuEmpleado  empleado=new VntMenuEmpleado(user);
                empleado.setVisible(true);
                setVisible(false);
         
@@ -258,7 +257,7 @@ cp.add(imagenTablero);
 
     private void listarStock() {
    
-        VntStock mostar = new VntStock();
+        VntStock mostar = new VntStock(user);
                mostar.setVisible(true);
                setVisible(false);
         
@@ -268,14 +267,14 @@ cp.add(imagenTablero);
 
 
     private void llamarVntCliente() {
-        VntMenuCliente Cliente=new VntMenuCliente();
+        VntMenuCliente Cliente=new VntMenuCliente(user);
                Cliente.setVisible(true);
                setVisible(false);
  
     }
 
     private void llamarRealizarFactura() {
-        AddRowJTable factura = new AddRowJTable();
+        AddRowJTable factura = new AddRowJTable(user);
               factura.setVisible(true);
                setVisible(false);
    
@@ -283,7 +282,7 @@ cp.add(imagenTablero);
 
     private void AnularFactura() {
        
-      VntAnularFactura  anular=new VntAnularFactura();
+      VntAnularFactura  anular=new VntAnularFactura(user);
                anular.setVisible(true);
                setVisible(false); 
         

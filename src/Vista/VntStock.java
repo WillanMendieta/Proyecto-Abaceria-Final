@@ -14,6 +14,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import modelo.Usuario;
 
 /**
  *
@@ -21,8 +22,10 @@ import javax.swing.JLabel;
  */
 public class VntStock extends JFrame implements ActionListener{
     
-    public VntStock(){
+    Usuario user;
+    public VntStock(Usuario usuario){
         componentes();
+        user = usuario;
     }
 
     private void componentes() {
@@ -69,8 +72,7 @@ public class VntStock extends JFrame implements ActionListener{
     }}
     
         private void Regresar() {
-            String u = null;
-        VntMenuPrincipalAdministrador  menu=new VntMenuPrincipalAdministrador(u);
+        VntMenuPrincipalAdministrador  menu=new VntMenuPrincipalAdministrador(user);
                menu.setVisible(true);
                setVisible(false);
     

@@ -19,6 +19,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import modelo.Usuario;
 
 /**
  *
@@ -32,9 +33,11 @@ public class VntIngresarProducto extends JFrame implements ActionListener  {
     private JTextField codigoPro;
     private JTextField nombreProducto;
     private JTextField cantidad;
+    Usuario user;
     
-    public VntIngresarProducto(){
+    public VntIngresarProducto(Usuario usuario){
         componentes();
+        user = usuario;
     }
 
     private void componentes() {
@@ -238,7 +241,7 @@ public class VntIngresarProducto extends JFrame implements ActionListener  {
 }
 
     private void Regresar() {
-            VntGestionPro  menuP=new VntGestionPro();
+            VntGestionPro  menuP=new VntGestionPro(user);
                menuP.setVisible(true);
                setVisible(false);
     }

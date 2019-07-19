@@ -18,6 +18,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import modelo.Usuario;
 
 /**
  *
@@ -30,9 +31,11 @@ public class VntActualizarDatosEmpleado extends JFrame implements ActionListener
     private JTextField apellido;
     private JTextField usuario;
     private JTextField contra;
+    Usuario user;
     
-    public VntActualizarDatosEmpleado(){
+    public VntActualizarDatosEmpleado(Usuario usuario){
         componentes();
+        user = usuario;
     }
 
     private void componentes() {
@@ -174,7 +177,7 @@ public class VntActualizarDatosEmpleado extends JFrame implements ActionListener
 
     private void Regresar() {
         String u = null;
-         VntMenuPrincipalAdministrador  menu=new VntMenuPrincipalAdministrador(u);
+         VntMenuPrincipalAdministrador  menu=new VntMenuPrincipalAdministrador(user);
                menu.setVisible(true);
                setVisible(false);
     }

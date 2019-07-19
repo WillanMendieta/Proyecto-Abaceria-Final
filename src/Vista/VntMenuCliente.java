@@ -19,15 +19,18 @@ import javax.swing.JFrame;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import modelo.Usuario;
 
 /**
  *
  * @author steve
  */
 public class VntMenuCliente extends JFrame implements ActionListener {
+    Usuario user;
     
-      public VntMenuCliente (){
+      public VntMenuCliente (Usuario usuario){
     Componentes();
+    user = usuario;
 }
 
     private void Componentes() {
@@ -129,20 +132,20 @@ cp.add(imagenTablero);
     }
     
           private void llamarActualizarDatosCliente() {
-        VntActualizarDatosCliente actualizaCli = new VntActualizarDatosCliente();
+        VntActualizarDatosCliente actualizaCli = new VntActualizarDatosCliente(user);
         actualizaCli.setVisible(true);
         setVisible(false);
    }
           
             private void llamarAgregarCliente() {
- VntCliente  cliente=new VntCliente();
+               VntCliente  cliente=new VntCliente(user);
                cliente.setVisible(true);
                setVisible(false);
     }
             
               private void Regresar() {
         String u = null;
-        VntMenuPrincipalAdministrador  menu=new VntMenuPrincipalAdministrador(u);
+        VntMenuPrincipalAdministrador  menu=new VntMenuPrincipalAdministrador(user);
                menu.setVisible(true);
                setVisible(false);
     }

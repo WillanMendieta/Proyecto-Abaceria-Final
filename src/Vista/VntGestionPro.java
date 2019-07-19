@@ -18,6 +18,7 @@ import javax.swing.JFrame;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import modelo.Usuario;
 
 /**
  *
@@ -25,10 +26,13 @@ import javax.swing.SwingConstants;
  */
 public class VntGestionPro extends JFrame implements ActionListener {
     
-    
-     public VntGestionPro(){
+    Usuario user;
+     public VntGestionPro(Usuario usuario){
+         
     Componentes();
-}
+    user = usuario;
+     
+     }
       private void Componentes() {
         setTitle("Gestion Producto");
 	setSize(1050,670);
@@ -193,25 +197,25 @@ cp.add(imagenTablero);
     }
 
     private void llamarAgregarProducto() {
-        VntAgregarProducto pro = new VntAgregarProducto();
+        VntAgregarProducto pro = new VntAgregarProducto(user);
         pro.setVisible(true);
         setVisible(false);
     }
 
     private void llamarEliminarProducto() {
-        VntEliminarProducto pr = new VntEliminarProducto();
+        VntEliminarProducto pr = new VntEliminarProducto(user);
         pr.setVisible(true);
         setVisible(false);
     }
 
     private void llamarIngresarCompras() {
-         VntIngresarProducto produ = new VntIngresarProducto();
+         VntIngresarProducto produ = new VntIngresarProducto(user);
         produ.setVisible(true);
         setVisible(false);
     }
 
     private void llamarDescuentos() {
-        VntDescuento des = new VntDescuento();
+        VntDescuento des = new VntDescuento(user);
         des.setVisible(true);
         setVisible(false);
    }
@@ -219,14 +223,14 @@ cp.add(imagenTablero);
   
 
     private void llamarActualizarDatosProducto() {
-        VntActualizarDatosProducto actualizaPro = new VntActualizarDatosProducto();
+        VntActualizarDatosProducto actualizaPro = new VntActualizarDatosProducto(user);
         actualizaPro.setVisible(true);
         setVisible(false);
     }
 
     private void Regresar() {
         String u = null;
-        VntMenuPrincipalAdministrador  menu=new VntMenuPrincipalAdministrador(u);
+        VntMenuPrincipalAdministrador  menu=new VntMenuPrincipalAdministrador(user);
                menu.setVisible(true);
                setVisible(false);
     }

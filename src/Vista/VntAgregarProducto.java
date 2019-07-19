@@ -19,6 +19,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+import modelo.Usuario;
 
 /**
  *
@@ -31,9 +32,11 @@ public class VntAgregarProducto extends JFrame implements ActionListener  {
     private JComboBox categoria;
     private JTextField precioTex;
     private JRadioButton ivaTex;
+    Usuario user;
     
-    public VntAgregarProducto(){
+    public VntAgregarProducto(Usuario usuario){
         componentes();
+        user = usuario;
     }
 
     private void componentes() {
@@ -173,7 +176,7 @@ public class VntAgregarProducto extends JFrame implements ActionListener  {
 }
 
     private void Regresar() {
-            VntGestionPro  menuP=new VntGestionPro();
+            VntGestionPro  menuP=new VntGestionPro(user);
                menuP.setVisible(true);
                setVisible(false);
     }

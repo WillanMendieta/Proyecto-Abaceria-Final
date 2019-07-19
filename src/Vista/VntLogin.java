@@ -5,6 +5,8 @@
  */
 package Vista;
 
+import Conexion.conexionDB;
+//import Controlador.GestionPersona;
 import Controlador.GestionUsuario;
 import com.sun.imageio.plugins.jpeg.JPEG;
 import java.awt.BorderLayout;
@@ -23,6 +25,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import modelo.Usuario;
+import Controlador.*;
 
 /**
  *
@@ -35,14 +39,19 @@ public class VntLogin extends JFrame implements ActionListener{
         
     private JTextField usuarioIn;
     private JPasswordField Password;
-    public static JDesktopPane escritorio;
     
+    public static JDesktopPane escritorio;
+    GestionPersona gestionPersona;
+    //GestionPersona gestionPersona;
+    conexionDB con = new conexionDB();
+    Usuario user = new Usuario(); 
     
     public VntLogin() {
+        gestionPersona = new GestionPersona();
         
         setTitle("Iniciar sesion");
         
-	setSize(250,350);
+	setSize(320,481);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	Container cp= getContentPane();
         setLocationRelativeTo(null);
@@ -102,32 +111,53 @@ public class VntLogin extends JFrame implements ActionListener{
          String comando = e.getActionCommand();
           switch(comando){
            case"Iniciar Sesión":
+               //String usuario = usuarioIn.getText();
+              // String password = Password.getText(); 
+               String valorPass = new String(Password.getPassword()); 
+               System.out.println("essssssss: " + valorPass);
+     
+               System.out.println(" inicia coneccion");
+               
+              con.Conectar();
+              System.out.println("entra a buscar empleado");
+              user = gestionPersona.buscarEmpleado(con, usuarioIn.getText(), valorPass);
+              
+              
+              con.CerrarConexion();
+              System.out.println("cesion cerrada");
+               
+              if(user.getId() > 0 ){
+                  if(user.getCargo().equalsIgnoreCase("A")){
+                      javax.swing.JOptionPane.showMessageDialog(null, "INGRESO ADMINISTRADOR", "Error", javax.swing.JOptionPane.WARNING_MESSAGE);
+                      VntMenuPrincipalAdministrador VenanaP= new VntMenuPrincipalAdministrador(user);
+                      VenanaP.setVisible(true);
+                      setVisible(false);
+                      
+                  }
+                  
+                  
+              }
+
+               
             llamarVentanaPrincipal();
              System.out.println("esta es la contra ya convertida para ussarse");
-         String valorPass = new String(Password.getPassword());      
- System.out.println(valorPass);
-             System.out.println("******************************************");
              
+              
+         System.out.println(valorPass);
             default:
                 
                 break;
         }
     }
 
+    
+    
     private void llamarVentanaPrincipal() {
-        
-
-        
-        
-        String u = usuarioIn.getText();
      
          GestionUsuario gestion = new GestionUsuario();
-        gestion.VerificarUsuario(u);
         
-        VntMenuPrincipalAdministrador VenanaP= new VntMenuPrincipalAdministrador(u);
         
-        VenanaP.setVisible(true);
-        setVisible(false);
+        
             
             
     }

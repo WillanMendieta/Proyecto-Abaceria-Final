@@ -17,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import modelo.Usuario;
 
 /**
  *
@@ -26,9 +27,10 @@ public class VntEliminarEmpleado extends JFrame implements ActionListener {
     private JTextField cedula;
     private JTextField nombre;
     private JTextField detalles;
-    
-    public VntEliminarEmpleado(){
+    Usuario user;
+    public VntEliminarEmpleado( Usuario usuario){
         componentes();
+        user = usuario;
     }
 
     private void componentes() {
@@ -149,7 +151,7 @@ public class VntEliminarEmpleado extends JFrame implements ActionListener {
 
     private void Regresar() {
         String u = null;
-        VntMenuPrincipalAdministrador  menu=new VntMenuPrincipalAdministrador(u);
+        VntMenuPrincipalAdministrador  menu=new VntMenuPrincipalAdministrador(user);
                menu.setVisible(true);
                setVisible(false);
     

@@ -19,6 +19,7 @@ import javax.swing.JFrame;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import modelo.Usuario;
 
 /**
  *
@@ -26,8 +27,11 @@ import javax.swing.SwingConstants;
  */
 public class VntMenuEmpleado extends JFrame implements ActionListener{
     
-      public VntMenuEmpleado(){
+    Usuario user;
+    
+      public VntMenuEmpleado(Usuario usuario){
     Componentes();
+    user = usuario;
 }
 
     private void Componentes() {
@@ -149,14 +153,14 @@ cp.add(imagenTablero);
     }
     }
      private void llamarAgregarEmpleado() {
-         VntEmpleado empleado = new VntEmpleado();
+         VntEmpleado empleado = new VntEmpleado(user);
                empleado.setVisible(true);
                setVisible(false);
     }
      
     private void llamarEliminarEmpleado() {
         
-        VntEliminarEmpleado empleadoElimina = new VntEliminarEmpleado();
+        VntEliminarEmpleado empleadoElimina = new VntEliminarEmpleado(user);
                empleadoElimina.setVisible(true);
                setVisible(false);
   
@@ -164,13 +168,13 @@ cp.add(imagenTablero);
     
       private void Regresar() {
         String u = null;
-        VntMenuPrincipalAdministrador  menu=new VntMenuPrincipalAdministrador(u);
+        VntMenuPrincipalAdministrador  menu=new VntMenuPrincipalAdministrador(user);
                menu.setVisible(true);
                setVisible(false);
     }
 
     private void llamarActualizarEmpleado() {
-   VntActualizarDatosEmpleado empleadoActualiza = new VntActualizarDatosEmpleado();
+   VntActualizarDatosEmpleado empleadoActualiza = new VntActualizarDatosEmpleado(user);
                empleadoActualiza.setVisible(true);
                setVisible(false);
     
