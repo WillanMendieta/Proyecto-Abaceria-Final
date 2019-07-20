@@ -5,7 +5,6 @@
  */
 package Vista;
 
-import Controlador.GestionUsuario;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -27,8 +26,8 @@ import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
-import modelo.Usuario;
-
+import modelo.*;
+import Controlador.*;
 
 /**
  *
@@ -37,21 +36,30 @@ import modelo.Usuario;
 public class VntMenuPrincipalAdministrador extends JFrame implements ActionListener {
 public static JDesktopPane escritorio;
 Usuario user;
-    
-boolean  TipoUsuario;
 
-   public VntMenuPrincipalAdministrador(Usuario usuario){
+   public VntMenuPrincipalAdministrador(Usuario usuario ){
        user = usuario;
-       GestionUsuario gestion = new GestionUsuario();
-        //TipoUsuario = gestion.VerificarUsuario(u);
+       ControlPersona control = new ControlPersona();
+       boolean TipoUsuario = tipoUsuario();
+        
        
-    Componentes();
-}
-
+    Componentes(TipoUsuario);
+    }
    
+   
+    public boolean tipoUsuario(){
+        boolean tipoUsuario;
+        if (user.getCargo().equalsIgnoreCase("A")){
+            tipoUsuario = true;
+        } else {
+            tipoUsuario = false;
+        }
+        //this.dispose();
+    return tipoUsuario;
+    }
+     
 
- 
-    private void Componentes( ) {
+    private void Componentes(boolean TipoUsuario) {
         
         setTitle("Menu");
 	setSize(1050,670);
