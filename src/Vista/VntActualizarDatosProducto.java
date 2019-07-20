@@ -5,6 +5,7 @@
  */
 package Vista;
 
+import Conexion.*;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.GridBagConstraints;
@@ -17,7 +18,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import modelo.Usuario;
+import modelo.*;
+import Controlador.*;
 
 /**
  *
@@ -31,16 +33,20 @@ public class VntActualizarDatosProducto extends JFrame implements ActionListener
     private JTextField stock;
     private JTextField precio;
     Usuario user;
+    conexionDB con = new conexionDB();
+    ControlProducto controlPro ;
     
     public VntActualizarDatosProducto(Usuario usuario){
         componentes();
         user = usuario;
+        controlPro = new ControlProducto();
+        
     }
 
     private void componentes() {
       setTitle("Actualizar Datos Producto");
         
-	setSize(450,350);
+	setSize(750,450);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 	Container cp= getContentPane();
@@ -54,64 +60,86 @@ public class VntActualizarDatosProducto extends JFrame implements ActionListener
         
         //Etiquetas para el la ventana de Registrar Cliente
         
+        JLabel ver = new JLabel("¿No encuentra el producto? - Consultelo !");
+        gb.gridx=0;
+        gb.gridy=0;
+        imagenFondo.add(ver,gb);
+        
+        JButton consultar = new JButton("Consultar");
+        gb.gridx=1;
+        gb.gridy=0;
+        consultar.addActionListener(this);
+        consultar.setActionCommand("consultar");
+	imagenFondo.add(consultar, gb);
+        
+        
         JLabel codigoJ = new JLabel("Codigo:");
 	gb.gridx=0;
-	gb.gridy=0;
+	gb.gridy=1;
         codigoJ.setForeground(Color.red);
 	imagenFondo.add(codigoJ, gb);
+        
         // Espacio en blanco para ingresar la cedula
         codigo= new JTextField(20);
 	gb.gridx=1;
-	gb.gridy=0;
+	gb.gridy=1;
 	imagenFondo.add(codigo, gb);
+        
+        JButton buscar = new JButton("Buscar");
+        gb.gridx=2;
+        gb.gridy=1;
+        buscar.addActionListener(this);
+        buscar.setActionCommand("buscar");
+	imagenFondo.add(buscar, gb);
+        
         
         //Etiqueta con el anunciado los nombres
         JLabel nombreJ = new JLabel("Nombre:");
 	gb.gridx=0;
-	gb.gridy=1;
+	gb.gridy=2;
         nombreJ.setForeground(Color.red);
 	imagenFondo.add(nombreJ, gb);
         //Espacio en blanco para ingresar los nombres
         nombre = new JTextField(20);
 	gb.gridx=1;
-	gb.gridy=1;
+	gb.gridy=2;
 	imagenFondo.add(nombre, gb);
         
         //Etiqueta con el anunciado de los apellidos
         JLabel categoriaJ = new JLabel("Categoria:");
 	gb.gridx=0;
-	gb.gridy=2;
+	gb.gridy=3;
         categoriaJ.setForeground(Color.red);
 	imagenFondo.add(categoriaJ, gb);
         //Espacio en blanco para ingresar los apellidos
         categoria= new JTextField(20);
 	gb.gridx=1;
-	gb.gridy=2;
+	gb.gridy=3;
 	imagenFondo.add(categoria, gb);
         
         //Etiqueta con el anunciado del telefono convencional
         JLabel stockJ = new JLabel("Stock");
 	gb.gridx=0;
-	gb.gridy=3;
+	gb.gridy=4;
         stockJ.setForeground(Color.red);
 	imagenFondo.add(stockJ, gb);
         //Espacio en blanco para ingresar el telefono convencional
         stock = new JTextField(20);
 	gb.gridx=1;
-	gb.gridy=3;
+	gb.gridy=4;
 	imagenFondo.add(stock, gb);
         
         
            //Etiqueta con el anunciado de telefono celular
         JLabel precioJ = new JLabel("Precio:");
 	gb.gridx=0;
-	gb.gridy=4;
+	gb.gridy=5;
         precioJ.setForeground(Color.red);
 	imagenFondo.add(precioJ, gb);
         //Espacio en blanco para ingresar el telefono celular
         precio = new JTextField(20);
 	gb.gridx=1;
-	gb.gridy=4;
+	gb.gridy=5;
 	imagenFondo.add(precio, gb);
      
         
@@ -133,9 +161,11 @@ public class VntActualizarDatosProducto extends JFrame implements ActionListener
 	panelBotones.add(Cancelar, gb);
         panelBotones.setBackground(Color.red);
         gb.gridx=1;
-	gb.gridy=5;
+	gb.gridy=6;
        imagenFondo.add(panelBotones,gb);
         cp.add(imagenFondo);
+        
+        
     }
 
     @Override
@@ -149,6 +179,11 @@ public class VntActualizarDatosProducto extends JFrame implements ActionListener
              case "Cancelar":
                 Regresar();
                 break;
+             case "consultar":
+                 consultar();
+                 
+             case "buscar":
+                 buscar();
         
             default:
                 break;
@@ -172,6 +207,29 @@ public class VntActualizarDatosProducto extends JFrame implements ActionListener
                 JFrame frame = new JFrame();
                 JOptionPane.showMessageDialog(frame,"Error de Datos");
             }
+    }
+
+    private void buscar() {
+        String idPro = codigo.getText();
+        int id = Integer.parseInt(idPro);
+        Producto pro = new Producto();
+        con.Conectar();
+        pro = controlPro.buscarProducto(con, id);
+        con.CerrarConexion();
+        if(pro.getId() >0 ){
+            nombre.setText(pro.getNombre());
+            
+            
+            
+        } else 
+            javax.swing.JOptionPane.showMessageDialog(null, "Producto no encontrado", "Not Found", javax.swing.JOptionPane.WARNING_MESSAGE);
+    
+    }
+
+    
+    
+    private void consultar() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
