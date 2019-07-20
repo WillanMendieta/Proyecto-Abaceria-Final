@@ -5,9 +5,6 @@
  */
 package Vista;
 
-import Conexion.conexionDB;
-//import Controlador.GestionPersona;
-import Controlador.GestionUsuario;
 import com.sun.imageio.plugins.jpeg.JPEG;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -25,8 +22,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import modelo.Usuario;
 import Controlador.*;
+import modelo.*;
+import Conexion.*;
 
 /**
  *
@@ -41,13 +39,14 @@ public class VntLogin extends JFrame implements ActionListener{
     private JPasswordField Password;
     
     public static JDesktopPane escritorio;
-    GestionPersona gestionPersona;
-    //GestionPersona gestionPersona;
     conexionDB con = new conexionDB();
     Usuario user = new Usuario(); 
+    ControlPersona perControl;
+    
+    Persona per = new Persona();
     
     public VntLogin() {
-        gestionPersona = new GestionPersona();
+        perControl = new ControlPersona();
         
         setTitle("Iniciar sesion");
         
@@ -111,59 +110,43 @@ public class VntLogin extends JFrame implements ActionListener{
          String comando = e.getActionCommand();
           switch(comando){
            case"Iniciar Sesión":
-               //String usuario = usuarioIn.getText();
-              // String password = Password.getText(); 
-               String valorPass = new String(Password.getPassword()); 
-               System.out.println("essssssss: " + valorPass);
-     
+               
+               String valorUser =  usuarioIn.getText();
+               String valorPass = new String(Password.getPassword());
                System.out.println(" inicia coneccion");
                
               con.Conectar();
               System.out.println("entra a buscar empleado");
-              user = gestionPersona.buscarEmpleado(con, usuarioIn.getText(), valorPass);
-              
+               System.out.println("datos del empleado ingresado: " + valorUser + " " + valorPass );
+              user = perControl.buscarEmpleado(con, valorUser , valorPass);
               
               con.CerrarConexion();
-              System.out.println("cesion cerrada");
+              System.out.println("sesion cerrada");
+               System.out.println("datos de usuario: " + user);
+               //System.out.println("Datos de Persona: "+ per);
                
-              if(user.getId() > 0 ){
+               if(user.getId() > 0 ){
                   if(user.getCargo().equalsIgnoreCase("A")){
-                      javax.swing.JOptionPane.showMessageDialog(null, "INGRESO ADMINISTRADOR", "Error", javax.swing.JOptionPane.WARNING_MESSAGE);
+                      System.out.println("administrador Encontrado !!!!!!!");
+                      javax.swing.JOptionPane.showMessageDialog(null, "Bienvenido: " + user.getNombre(), "Administrador", javax.swing.JOptionPane.WARNING_MESSAGE);
+                      
+                      VntMenuPrincipalAdministrador VenanaP= new VntMenuPrincipalAdministrador(user);
+                      VenanaP.setVisible(true);
+                      setVisible(false);
+                      
+                  }else if (user.getCargo().equalsIgnoreCase("E")){
+                      System.out.println("empleado detectado !!!!!!!!!!! ");
+                      javax.swing.JOptionPane.showMessageDialog(null, "Bienvenido: " + user.getNombre(), "Empleado", javax.swing.JOptionPane.WARNING_MESSAGE);
                       VntMenuPrincipalAdministrador VenanaP= new VntMenuPrincipalAdministrador(user);
                       VenanaP.setVisible(true);
                       setVisible(false);
                       
                   }
-                  
-                  
-              }
-
-               
-            llamarVentanaPrincipal();
-             System.out.println("esta es la contra ya convertida para ussarse");
-             
-              
-         System.out.println(valorPass);
-            default:
+              } else 
+                   javax.swing.JOptionPane.showMessageDialog(null, "Error al ingreso de datos", "Error", javax.swing.JOptionPane.WARNING_MESSAGE);
                 
                 break;
         }
     }
 
-    
-    
-    private void llamarVentanaPrincipal() {
-     
-         GestionUsuario gestion = new GestionUsuario();
-        
-        
-        
-            
-            
-    }
-        
-        
-    
-    
-    
 }
