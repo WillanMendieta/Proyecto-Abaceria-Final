@@ -5,6 +5,7 @@
  */
 package modelo;
 
+import modelo.*;
 /**
  *
  * @author Macao
@@ -19,7 +20,18 @@ public class Producto {
     private String identificarIVA;
     private String estado;
     private String tipo;
+    private String descipcion;  
+    private Categoria categoria;
 
+    public Producto() {
+        categoria = new Categoria();
+        id = 0;
+        descuento = 0;
+        precio = 0;
+        stock = 0;
+        
+    }
+    
     public int getId() {
         return id;
     }
@@ -84,10 +96,28 @@ public class Producto {
         this.tipo = tipo;
     }
 
+    public String getDescipcion() {
+        return descipcion;
+    }
+
+    public void setDescipcion(String descipcion) {
+        this.descipcion = descipcion;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
     @Override
     public String toString() {
-        return "Producto{" + "id=" + id + ", nombre=" + nombre + ", descuento=" + descuento + ", precio=" + precio + ", stock=" + stock + ", identificarIVA=" + identificarIVA + ", estado=" + estado + ", tipo=" + tipo + '}';
+        return "Producto{" + "id=" + id + ", nombre=" + nombre + ", descuento=" + descuento + ", precio=" + precio + ", stock=" + stock + ", identificarIVA=" + identificarIVA + ", estado=" + estado + ", tipo=" + tipo + ", descipcion=" + descipcion + ", categoria=" + categoria + '}';
     }
+    
+    
     
     
 }
