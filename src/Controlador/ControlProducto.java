@@ -57,7 +57,7 @@ public class ControlProducto {
                 //pro.setCodigo(resultado.getString("prod_codigo"));
                 pro.setNombre(resultado.getString("pro_nombre"));
                 pro.setDescuento(resultado.getInt("pro_descuento"));
-                pro.setEstado(resultado.getString("prod_estado"));
+                pro.setEstado(resultado.getString("pro_estado"));
                 pro.setPrecio(resultado.getDouble("pro_precio"));
                 pro.setStock(resultado.getInt("pro_stock"));
                 pro.setIdentificarIVA(resultado.getString("pro_identificador_iva"));
