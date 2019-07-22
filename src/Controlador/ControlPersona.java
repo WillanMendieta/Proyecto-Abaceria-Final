@@ -95,10 +95,74 @@ public class ControlPersona {
         return user;
         
     }
+
+    public void agregarEmpleado(conexionDB con, String cedula, String nombre, String apellido, String direccion , String convencional, String celular, String usuario, String contra, String cargo, String estado) {
+         try {
+            psentencia= con.getConexion().prepareStatement("INSERT INTO "
+                    + "aba_personas VALUES (per_id_seq.nextval,?,?,?,?,?,?,?,?,?,?)");
+            psentencia.setString(1, cedula);
+            psentencia.setString(2, nombre);
+            psentencia.setString(3, apellido);
+            psentencia.setString(4, direccion);
+            psentencia.setString(5, usuario);
+            psentencia.setString(6, contra);
+            psentencia.setString(7, cargo);
+            psentencia.setString(8, convencional);
+            psentencia.setString(9, celular);
+            psentencia.setString(10, estado);
+            
+            ///Se debe ejecutar la sentencia de Insert
+            psentencia.executeUpdate();
+            
+            /*
+            System.out.println("1. Commit "
+                    + " 2. RollBack");
+            Scanner sc = new Scanner(System.in);
+            int opcion= sc.nextInt();
+            
+            if(opcion == 1){
+                con.getConexion().commit();
+            }
+            else{
+                con.getConexion().rollback();
+            }
+*/
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        
+        
+        
+    }
+
+    public void agregarCliente(conexionDB con, String cedula, String nombre, String apellido, String direccion, String convencional, String celular,  String estado) {
+        String usuario = "";
+        String contra = "";
+        String cargo = "C";
+        try {
+            psentencia= con.getConexion().prepareStatement("INSERT INTO "
+                    + "aba_personas VALUES (per_id_seq.nextval,?,?,?,?,?,?,?,?,?,?)");
+            psentencia.setString(1, cedula);
+            psentencia.setString(2, nombre);
+            psentencia.setString(3, apellido);
+            psentencia.setString(4, direccion);
+            psentencia.setString(5, usuario);
+            psentencia.setString(6, contra);
+            psentencia.setString(7, cargo);
+            psentencia.setString(8, convencional);
+            psentencia.setString(9, celular);
+            psentencia.setString(10, estado);
+            
+            ///Se debe ejecutar la sentencia de Insert
+            psentencia.executeUpdate();
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+    }
+    
+    }
     
     
-    
-    
-    
-    
-}

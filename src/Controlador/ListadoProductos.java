@@ -79,11 +79,10 @@ public class ListadoProductos extends AbstractTableModel {
             case 5:
                 return producto.getIdentificarIVA();
             case 6:
-                //return  producto.getTipo();
-                if(producto.getTipo().equalsIgnoreCase("N")) {
-                    return "Nacional";
+                if(producto.getEstado().equalsIgnoreCase("A")) {
+                    return "Activo";
                 }else 
-                    return "Extranjero";
+                    return "Inactivo";
             case 7:
                 return producto.getDescipcion();
             case 8:
@@ -120,7 +119,7 @@ public class ListadoProductos extends AbstractTableModel {
                 producto.setIdentificarIVA((String) value);
                 break;
             case 6:
-                producto.setTipo((String) value);
+                producto.setEstado((String) value);
             case 7:
                 producto.setDescipcion((String) value);
             case 8:
