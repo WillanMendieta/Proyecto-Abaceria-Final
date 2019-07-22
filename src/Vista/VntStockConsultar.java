@@ -140,6 +140,21 @@ public class VntStockConsultar extends javax.swing.JFrame {
             VntMenuPrincipalAdministrador  menu=new VntMenuPrincipalAdministrador(user);
             menu.setVisible(true);
             setVisible(false);
+            
+        }else if(cambio == 3){
+            VntAgregarProducto agrePro = new VntAgregarProducto(user);
+            agrePro.setVisible(true);
+            setVisible(false);
+            
+        }else if (cambio == 4){
+            VntEliminarProducto eli = new VntEliminarProducto(user);
+            eli.setVisible(true);
+            setVisible(false);
+            
+        }else if (cambio == 5){
+            VntDescuento des = new VntDescuento(user);
+            des.setVisible(true);
+            setVisible(false);
         }
         
 

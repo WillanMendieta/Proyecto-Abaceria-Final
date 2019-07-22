@@ -52,7 +52,7 @@ public class VntEliminarEmpleado extends JFrame implements ActionListener {
         
         //Etiquetas para el la ventana login
         
-        JLabel buscar = new JLabel("Buscar Empleado: ");
+        JLabel buscar = new JLabel("Cedula :");
 	gb.gridx=0;
 	gb.gridy=0;
         buscar.setForeground(Color.red);
@@ -150,14 +150,11 @@ public class VntEliminarEmpleado extends JFrame implements ActionListener {
     }
 
     private void Regresar() {
-        String u = null;
-        VntMenuPrincipalAdministrador  menu=new VntMenuPrincipalAdministrador(user);
-               menu.setVisible(true);
-               setVisible(false);
-    
+        VntMenuEmpleado ver = new VntMenuEmpleado(user);
+        ver.setVisible(true);
+        setVisible(false);
     } 
     
-
 
     private void llamarMetodoEliminar() {
           String u = cedula.getText();

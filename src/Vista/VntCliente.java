@@ -5,6 +5,8 @@
  */
 package Vista;
 
+import Conexion.conexionDB;
+import Controlador.ControlPersona;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.GridBagConstraints;
@@ -32,14 +34,17 @@ public class VntCliente extends JFrame implements ActionListener {
     private JTextField celular;
     private JTextField direccion;
     Usuario user;
-    
+    ControlPersona controlPer ;
+    conexionDB con = new conexionDB();
     public VntCliente(Usuario usuario){
         componentes();
+        user = usuario;
+        controlPer = new ControlPersona();
         user = usuario;
     }
 
     private void componentes() {
-      setTitle("Registrar Cliente");
+      setTitle("Agregar Nuevo Cliente");
         
 	setSize(450,350);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -172,23 +177,30 @@ public class VntCliente extends JFrame implements ActionListener {
 }
 
     private void Regresar() {
-        String u = null;
-         VntMenuPrincipalAdministrador  menu=new VntMenuPrincipalAdministrador(user);
-               menu.setVisible(true);
-               setVisible(false);
+        VntMenuCliente ver = new VntMenuCliente(user);
+        ver.setVisible(true);
+        setVisible(false);
     }
 
     private void llamarMetodoAgregarCliente() {
+         if(nombre.getText().isEmpty() || cedula.getText().isEmpty() || apellido.getText().isEmpty()) {
+             javax.swing.JOptionPane.showMessageDialog(null, "Nombre, Apellido, Cedula no pueden ser nulos", "Error de Campos", javax.swing.JOptionPane.WARNING_MESSAGE);
+    
+            
+        }else{
+            String estado = "A";
+            con.Conectar();
+            controlPer.agregarCliente(con, cedula.getText(), nombre.getText(), apellido.getText(),
+                                    direccion.getText(), convencional.getText(), celular.getText(),estado);
+            con.CerrarConexion();
+            javax.swing.JOptionPane.showMessageDialog(null, "Cliente Agregado", "Exito", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+            cedula.setText("");
+            nombre.setText("");
+            apellido.setText("");
+            direccion.setText("");
+            convencional.setText("");
+            celular.setText("");
+        }
+        }
         
-          String u = cedula.getText();
-            if(u.equals("1") ){
-                JFrame frame = new JFrame();
-                JOptionPane.showMessageDialog(frame,"Cliente Agregado");
-            } else {
-                JFrame frame = new JFrame();
-                JOptionPane.showMessageDialog(frame,"Cliente no Agregado");
-            }
-   
-       
-    }
 }

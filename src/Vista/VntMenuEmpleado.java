@@ -152,10 +152,12 @@ cp.add(imagenTablero);
                
     }
     }
+    
      private void llamarAgregarEmpleado() {
-         VntEmpleado empleado = new VntEmpleado(user);
-               empleado.setVisible(true);
+        agregarEmpleado empleado = new agregarEmpleado(user);
+             empleado.setVisible(true);
                setVisible(false);
+         
     }
      
     private void llamarEliminarEmpleado() {
@@ -174,10 +176,9 @@ cp.add(imagenTablero);
     }
 
     private void llamarActualizarEmpleado() {
-   VntActualizarDatosEmpleado empleadoActualiza = new VntActualizarDatosEmpleado(user);
-               empleadoActualiza.setVisible(true);
-               setVisible(false);
-    
+        actualizarDatosEmpleado actemp = new actualizarDatosEmpleado(user);
+        actemp.setVisible(true);
+        setVisible(false);
     }
     
 }

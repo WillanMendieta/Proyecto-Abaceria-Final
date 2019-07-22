@@ -41,11 +41,10 @@ Usuario user;
        user = usuario;
        ControlPersona control = new ControlPersona();
        boolean TipoUsuario = tipoUsuario();
-        
+       
        
     Componentes(TipoUsuario);
     }
-   
    
     public boolean tipoUsuario(){
         boolean tipoUsuario;
@@ -264,11 +263,17 @@ cp.add(imagenTablero);
     }
 
     private void listarStock() {
-   
+        int a = 2;
+        VntStockConsultar consultar = new VntStockConsultar(user, a );
+        consultar.setVisible(true);
+        setVisible(false);
+        
+        /*
         VntStock mostar = new VntStock(user);
                mostar.setVisible(true);
                setVisible(false);
-        
+*/        
+
     }
     
 

@@ -128,7 +128,9 @@ public class VntLogin extends JFrame implements ActionListener{
                if(user.getId() > 0 ){
                   if(user.getCargo().equalsIgnoreCase("A")){
                       System.out.println("administrador Encontrado !!!!!!!");
-                      javax.swing.JOptionPane.showMessageDialog(null, "Bienvenido: " + user.getNombre(), "Administrador", javax.swing.JOptionPane.WARNING_MESSAGE);
+                      javax.swing.JOptionPane.showMessageDialog(null, "Bienvenido: " + user.getNombre(), "Administrador", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+                      
+                      //JOptionPane.showMessageDialog(frame1,"Producto Agregado a Lista");
                       
                       VntMenuPrincipalAdministrador VenanaP= new VntMenuPrincipalAdministrador(user);
                       VenanaP.setVisible(true);
@@ -136,7 +138,7 @@ public class VntLogin extends JFrame implements ActionListener{
                       
                   }else if (user.getCargo().equalsIgnoreCase("E")){
                       System.out.println("empleado detectado !!!!!!!!!!! ");
-                      javax.swing.JOptionPane.showMessageDialog(null, "Bienvenido: " + user.getNombre(), "Empleado", javax.swing.JOptionPane.WARNING_MESSAGE);
+                      javax.swing.JOptionPane.showMessageDialog(null, "Bienvenido: " + user.getNombre(), "Empleado", javax.swing.JOptionPane.INFORMATION_MESSAGE);
                       VntMenuPrincipalAdministrador VenanaP= new VntMenuPrincipalAdministrador(user);
                       VenanaP.setVisible(true);
                       setVisible(false);

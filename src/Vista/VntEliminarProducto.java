@@ -17,8 +17,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import modelo.Usuario;
-
+import modelo.*;
+import Conexion.*;
+import Controlador.*;
 /**
  *
  * @author steve
@@ -28,18 +29,22 @@ public class VntEliminarProducto extends JFrame implements ActionListener {
     private JTextField nombre;
     private JTextField detalles;
     Usuario user;
+    ControlProducto controlPro ;
+    conexionDB con = new conexionDB();
     
     public VntEliminarProducto(Usuario usuario){
         componentes();
         user = usuario;
+        controlPro = new ControlProducto();
+        
     }
 
     private void componentes() {
             
              
-        setTitle("Eliminar Producto");
+        setTitle("Deshabilitar un Producto");
         
-	setSize(550,200);
+	setSize(720,300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	Container cp= getContentPane();
         setLocationRelativeTo(null);
@@ -53,19 +58,19 @@ public class VntEliminarProducto extends JFrame implements ActionListener {
         
         //Etiquetas para el la ventana login
         
-        JLabel buscar = new JLabel("Buscar Producto ");
+        JLabel nombreJ = new JLabel("Nombre:");
 	gb.gridx=0;
 	gb.gridy=0;
-        buscar.setForeground(Color.red);
-	imagenFondo.add(buscar, gb);
+        nombreJ.setForeground(Color.red);
+	imagenFondo.add(nombreJ, gb);
         
         // Espacio en blanco para el reibimiento del usuario
-        codigo= new JTextField(20);
+        nombre= new JTextField(20);
 	gb.gridx=1;
 	gb.gridy=0;
-	imagenFondo.add(codigo, gb);
+	imagenFondo.add(nombre, gb);
         
-        JButton buscarBoton= new JButton("Buscar");
+        JButton buscarBoton= new JButton("Buscar por Nombre");
 	gb.gridx=2;
 	gb.gridy=0;
 	gb.gridwidth=1;
@@ -73,20 +78,40 @@ public class VntEliminarProducto extends JFrame implements ActionListener {
         buscarBoton.setActionCommand("buscar");
 	imagenFondo.add(buscarBoton, gb);
         
-        //Etiqueta con el anunciasdo de contraseña
-        JLabel nombreJ = new JLabel("Nombre:");
-	gb.gridx=0;
-	gb.gridy=1;
-        nombreJ.setForeground(Color.red);
-	imagenFondo.add(nombreJ, gb);
-        //Esaco en blanco para ingresar la contraseña
-        nombre = new JTextField(20);
-	gb.gridx=1;
-	gb.gridy=1;
-	imagenFondo.add(nombre, gb);
+        
+        JButton consultarPro= new JButton("Consultar Productos");
+	gb.gridx=3;
+	gb.gridy=0;
+	gb.gridwidth=1;
+        consultarPro.addActionListener(this);
+        consultarPro.setActionCommand("consultar");
+	imagenFondo.add(consultarPro, gb);
+        
         
         //Etiqueta con el anunciasdo de contraseña
-        JLabel detallesJ = new JLabel("Detalles de Eliminacion:");
+        JLabel codigoJ = new JLabel("Codigo:");
+	gb.gridx=0;
+	gb.gridy=1;
+        codigoJ.setForeground(Color.red);
+	imagenFondo.add(codigoJ, gb);
+        //Esaco en blanco para ingresar la contraseña
+        codigo = new JTextField(20);
+	gb.gridx=1;
+	gb.gridy=1;
+	imagenFondo.add(codigo, gb);
+        
+        JButton buscarCodigo= new JButton("Buscar por Codigo");
+	gb.gridx=2;
+	gb.gridy=1;
+	gb.gridwidth=1;
+        buscarCodigo.addActionListener(this);
+        buscarCodigo.setActionCommand("buscaCodigo");
+	imagenFondo.add(buscarCodigo, gb);
+        
+        
+        
+        //Etiqueta con el anunciasdo de contraseña
+        JLabel detallesJ = new JLabel("Detalles de la Deshabilitacion:");
 	gb.gridx=0;
 	gb.gridy=2;
         detallesJ.setForeground(Color.red);
@@ -100,7 +125,7 @@ public class VntEliminarProducto extends JFrame implements ActionListener {
         JPanel panelBotones = new JPanel();
         
         //boton de Anular 
-        JButton eliminar= new JButton("Eliminar");
+        JButton eliminar= new JButton("Deshabilitar");
 	gb.gridx=0;
 	gb.gridy=0;
 	gb.gridwidth=1;
@@ -143,6 +168,12 @@ public class VntEliminarProducto extends JFrame implements ActionListener {
           case "cancelar":
                 Regresar();
                 break;
+          case "consultar":
+                consultar();
+              break;
+          case "buscaCodigo":
+              buscarCodigo();
+              break;
         
             default:
                 break;
@@ -160,25 +191,56 @@ public class VntEliminarProducto extends JFrame implements ActionListener {
 
 
     private void llamarMetodoEliminar() {
-          String u = codigo.getText();
-            if(u.equals("1") ){
-                JFrame frame = new JFrame();
-                JOptionPane.showMessageDialog(frame,"Producto Eliminado");
-            } else {
-                JFrame frame = new JFrame();
-                JOptionPane.showMessageDialog(frame,"Producto no eliminado");
-            }
+        try {
+         String estado = "I";
+        String codP = codigo.getText();
+        String desP = detalles.getText();
+        int codPP = Integer.parseInt(codP);
+        con.Conectar();
+        controlPro.eliminarProducto(con, estado, codPP, desP);
+        con.CerrarConexion();
+        javax.swing.JOptionPane.showMessageDialog(null, "Producto Deshabilitado", "Exito", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+    
+            
+        } catch (Exception e) {
+            javax.swing.JOptionPane.showMessageDialog(null, "Error de Eliminacion", "Error de Campos", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+    
+        }
+        
    
     }
 
     private void verificarProducto() {
-          String u = codigo.getText();
-            if(u.equals("1") ){
-                JFrame frame = new JFrame();
-                JOptionPane.showMessageDialog(frame,"Producto Encontrado");
-            } else {
-                JFrame frame = new JFrame();
-                JOptionPane.showMessageDialog(frame,"Producto no Encontrado");
-            }
+        Producto pro = new Producto();
+        String nombreP = nombre.getText();
+        con.Conectar();
+        pro = controlPro.buscaProductoNombre(con, nombreP);
+        con.CerrarConexion();
+        int cod = pro.getId();
+        System.out.println(cod);
+        if(cod != 0){
+            String codS = Integer.toString(cod);
+            codigo.setText(codS);
+        }else{
+            javax.swing.JOptionPane.showMessageDialog(null, "Producto no encontrado", "Error", javax.swing.JOptionPane.WARNING_MESSAGE);
+    
+        }        
+    }
+
+    private void consultar() {
+        int a = 4;
+        VntStockConsultar stock = new VntStockConsultar(user, a);
+        stock.setVisible(true);
+        setVisible(false);
+    }
+
+    private void buscarCodigo() {
+        Producto pro = new Producto();
+        String codigoP = codigo.getText();
+        int cod = Integer.parseInt(codigoP);
+        con.Conectar();
+        pro = controlPro.buscarProducto(con, cod);
+        con.CerrarConexion();
+        nombre.setText(pro.getNombre());
     }
 }

@@ -20,6 +20,10 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import modelo.Usuario;
+import modelo.*;
+import Conexion.*;
+import Controlador.*;
+
 
 /**
  *
@@ -32,17 +36,35 @@ public class VntAgregarProducto extends JFrame implements ActionListener  {
     private JComboBox categoria;
     private JTextField precioTex;
     private JRadioButton ivaTex;
+    private JLabel verMensaje;
+    
     Usuario user;
+    conexionDB con = new conexionDB();
+    ControlProducto controlPro ;
+    ListadoProductos ver ;
+   static boolean verIVA;
+    
+    
+    
     
     public VntAgregarProducto(Usuario usuario){
         componentes();
         user = usuario;
+        controlPro = new ControlProducto();
+        
+         con.Conectar();
+        for (Categoria cate : controlPro.ListaCategoria(con) ){
+            System.out.println("Nombre la categoria: " + cate);
+            categoria.addItem(cate.getNombre());
+        }
+        con.CerrarConexion();
+        
     }
 
     private void componentes() {
       setTitle("Agregar Producto");
         
-	setSize(450,350);
+	setSize(650,500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 	Container cp= getContentPane();
@@ -61,12 +83,11 @@ public class VntAgregarProducto extends JFrame implements ActionListener  {
 	gb.gridy=0;
         codigoJ.setForeground(Color.red);
 	imagenFondo.add(codigoJ, gb);
-        // Espacio en blanco para ingresar la cedula
+        
         codigo= new JTextField(20);
 	gb.gridx=1;
 	gb.gridy=0;
-        codigo.setEditable(false);
-	imagenFondo.add(codigo, gb);
+        imagenFondo.add(codigo, gb);
         
         
         //Etiqueta con el anunciado los nombres
@@ -81,6 +102,15 @@ public class VntAgregarProducto extends JFrame implements ActionListener  {
 	gb.gridy=1;
 	imagenFondo.add(nombre, gb);
         
+        
+        JLabel ver = new JLabel("¿No encuentra la Categoria? Agregelo");
+	gb.gridx=2;
+	gb.gridy=1;
+        ver.setForeground(Color.red);
+	imagenFondo.add(ver, gb);
+        
+        
+        
         //Etiqueta con el anunciado de los apellidos
         JLabel categoriaJ = new JLabel("Categoria:");
 	gb.gridx=0;
@@ -89,10 +119,18 @@ public class VntAgregarProducto extends JFrame implements ActionListener  {
 	imagenFondo.add(categoriaJ, gb);
         //Espacio en blanco para ingresar los apellidos
         categoria= new JComboBox();
-        categoria.addItem("Ejemplo");
 	gb.gridx=1;
 	gb.gridy=2;
 	imagenFondo.add(categoria, gb);
+        
+        
+        JButton catA = new JButton("Agregar Categoria");
+	gb.gridx=2;
+	gb.gridy=2;
+        catA.addActionListener(this);
+        catA.setActionCommand("catA");
+        imagenFondo.add(catA, gb);
+        
         
         //Etiqueta con el anunciado del telefono convencional
         JLabel precioJ = new JLabel("Precio");
@@ -143,7 +181,28 @@ public class VntAgregarProducto extends JFrame implements ActionListener  {
         gb.gridx=1;
 	gb.gridy=5;
        imagenFondo.add(panelBotones,gb);
+        
+       
+        JPanel panelConfirmar = new JPanel();
+        
+        JButton consultar= new JButton("Consultar Productos Actuales");
+	gb.gridx=0;
+	gb.gridy=0;
+        consultar.addActionListener(this);
+        consultar.setActionCommand("consulta");
+	panelConfirmar.add(consultar, gb);
+        
+        verMensaje = new JLabel("");
+        gb.gridx=1 ;
+        gb.gridy=1;
+        panelConfirmar.add(verMensaje);
+        
+        gb.gridx=1;
+        gb.gridy=6;
+        imagenFondo.add(panelConfirmar, gb);
+        
         cp.add(imagenFondo);
+        
     }
 
     @Override
@@ -161,14 +220,22 @@ public class VntAgregarProducto extends JFrame implements ActionListener  {
                   System.out.println("accion del iva");
                   
                   if(ivaTex.isSelected()==true) {
-                      System.out.println("esta activadoo el iva");
+                      verIVA = true;
                       
-                  } else if (ivaTex.isSelected()==true){
-                      System.out.println("se desactivo el iva");
-                  
+                  } else if (ivaTex.isSelected()==false){
+                      verIVA = false;
               }
                   break;
+                  
+              case "catA":
+                  agregarCategoria();
+                  break;
+                  
+              case "consulta":
+                  consultarPro();
+                  break;
             default:
+                
                 break;
         
     }
@@ -182,14 +249,100 @@ public class VntAgregarProducto extends JFrame implements ActionListener  {
     }
 
     private void llamarMetodoAgregarProducto() {
-          String u = codigo.getText();
-            if(u.equals("1") ){
-                JFrame frame = new JFrame();
-                JOptionPane.showMessageDialog(frame,"Producto Agregado");
-            } else {
-                JFrame frame = new JFrame();
-                JOptionPane.showMessageDialog(frame,"Producto no Agregado");
+        verMensaje.setText("");
+        
+        Categoria mandaCat = new Categoria();
+        String cat = categoria.getSelectedItem().toString();
+        con.Conectar();
+        mandaCat = controlPro.buscaCategoriaNombre(con, cat);
+        con.CerrarConexion();
+        
+        
+        if (verIVA == true){
+            try {
+                String cod = codigo.getText();
+            String pre = precioTex.getText();
+            
+            int codd = Integer.parseInt(cod);
+            String nom = nombre.getText();
+            int des = 0;
+            double pree = Double.parseDouble(pre);
+            int stock =0;
+            String iva = "I";
+            int catnom = mandaCat.getId();
+            String estado = "A";
+            String tipo = "N";
+            String descrip = "";
+            
+            
+            con.Conectar();
+            controlPro.agregarProductoNuevo(con, codd, nom, des, pree, stock, iva, catnom, estado, tipo, descrip);
+            
+            con.CerrarConexion();
+            verMensaje.setText("Producto Agregado Exitosamente (I)");
+                
+            } catch (Exception e) {
+                javax.swing.JOptionPane.showMessageDialog(null, "Campo codigo no puede ser nulo", "Error", javax.swing.JOptionPane.WARNING_MESSAGE);
+    
             }
+            
+            
+        }else if(verIVA == false){
+            try {
+                String cod = codigo.getText();
+            String pre = precioTex.getText();
+            
+            int codd = Integer.parseInt(cod);
+            String nom = nombre.getText();
+            int des = 0;
+            double pree = Double.parseDouble(pre);
+            int stock =0;
+            String iva = "I";
+            int catnom = mandaCat.getId();
+            String estado = "A";
+            String tipo = "N";
+            String descrip = "";
+            
+            
+            con.Conectar();
+            controlPro.agregarProductoNuevo(con, codd, nom, des, pree, stock, iva, catnom, estado, tipo, descrip);
+            
+            con.CerrarConexion();
+            verMensaje.setText("Producto Agregado Exitosamente (S)");
+            
+            codigo.setText("");
+            nombre.setText("");
+            precioTex.setText("");
+            
+                
+            } catch (Exception e) {
+                 javax.swing.JOptionPane.showMessageDialog(null, "Campo codigo no puede ser nulo", "Error", javax.swing.JOptionPane.WARNING_MESSAGE);
+    
+            }
+            
+        }else{
+            System.out.println("mandar mensaje de que debe esatblecer un valor a iva ");
+        }
+        
+    }
+
+    private void agregarCategoria() {
+        
+        VntCategoria verCat = new VntCategoria(user);
+        verCat.setVisible(true);
+        setVisible(false);
+        
+    }
+
+    private void consultarPro() {
+         int a = 3;
+        VntStockConsultar consultar = new VntStockConsultar(user, a);
+        consultar.setVisible(true);
+        setVisible(false);
+         
+    
+    
+    
     }
     
 }

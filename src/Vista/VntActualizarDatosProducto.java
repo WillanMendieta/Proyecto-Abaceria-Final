@@ -20,6 +20,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import modelo.*;
 import Controlador.*;
+import javax.swing.JComboBox;
+import javax.swing.JRadioButton;
 
 /**
  *
@@ -29,19 +31,34 @@ public class VntActualizarDatosProducto extends JFrame implements ActionListener
     
     private JTextField codigo;
     private JTextField nombre;
-    private JTextField categoria;
+    private JComboBox categoria;
     private JTextField stock;
     private JTextField precio;
+    private JTextField iva;
+    
+    
     Usuario user;
     conexionDB con = new conexionDB();
     ControlProducto controlPro ;
+    ListadoProductos ver ;
     
     public VntActualizarDatosProducto(Usuario usuario){
         componentes();
         user = usuario;
         controlPro = new ControlProducto();
+        ver = new ListadoProductos();
         
+        con.Conectar();
+        for (Categoria cate : controlPro.ListaCategoria(con) ){
+            System.out.println("Nombre la categoria: " + cate);
+            categoria.addItem(cate.getNombre());
+        }
+        con.CerrarConexion();
+        
+        categoria.setEnabled(false);
     }
+    
+    
 
     private void componentes() {
       setTitle("Actualizar Datos Producto");
@@ -105,17 +122,49 @@ public class VntActualizarDatosProducto extends JFrame implements ActionListener
 	gb.gridy=2;
 	imagenFondo.add(nombre, gb);
         
+        
+        /*
         //Etiqueta con el anunciado de los apellidos
         JLabel categoriaJ = new JLabel("Categoria:");
 	gb.gridx=0;
 	gb.gridy=3;
         categoriaJ.setForeground(Color.red);
 	imagenFondo.add(categoriaJ, gb);
+        
         //Espacio en blanco para ingresar los apellidos
         categoria= new JTextField(20);
 	gb.gridx=1;
 	gb.gridy=3;
 	imagenFondo.add(categoria, gb);
+        */
+        
+        JLabel categoriaJ = new JLabel("Categoria:");
+	gb.gridx=0;
+	gb.gridy=3;
+        categoriaJ.setForeground(Color.red);
+	imagenFondo.add(categoriaJ, gb);
+        //Espacio en blanco para ingresar los apellidos
+        categoria= new JComboBox();
+       // categoria.addItem("Ejemplo");
+	gb.gridx=1;
+	gb.gridy=3;
+	imagenFondo.add(categoria, gb);
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         //Etiqueta con el anunciado del telefono convencional
         JLabel stockJ = new JLabel("Stock");
@@ -142,6 +191,18 @@ public class VntActualizarDatosProducto extends JFrame implements ActionListener
 	gb.gridy=5;
 	imagenFondo.add(precio, gb);
      
+           //Etiqueta con el anunciado de telefono celular
+        JLabel ivaP = new JLabel("I.V.A :   Con iva (I)   -   Sin iva (S)");
+	gb.gridx=0;
+	gb.gridy=6;
+        ivaP.setForeground(Color.red);
+	imagenFondo.add(ivaP, gb);
+        //Espacio en blanco para ingresar el telefono celular
+        iva = new JTextField(3);
+	gb.gridx=1;
+	gb.gridy=6;
+	imagenFondo.add(iva, gb);
+        
         
         JPanel panelBotones = new JPanel();
         //boton de Registar
@@ -161,7 +222,7 @@ public class VntActualizarDatosProducto extends JFrame implements ActionListener
 	panelBotones.add(Cancelar, gb);
         panelBotones.setBackground(Color.red);
         gb.gridx=1;
-	gb.gridy=6;
+	gb.gridy=7;
        imagenFondo.add(panelBotones,gb);
         cp.add(imagenFondo);
         
@@ -181,10 +242,11 @@ public class VntActualizarDatosProducto extends JFrame implements ActionListener
                 break;
              case "consultar":
                  consultar();
+                 break;
                  
              case "buscar":
                  buscar();
-        
+                 break;
             default:
                 break;
         
@@ -199,37 +261,78 @@ public class VntActualizarDatosProducto extends JFrame implements ActionListener
     }
 
     private void llamarMetodoActualizarProducto() {
-          String u = codigo.getText();
-            if(u.equals("1") ){
-                JFrame frame = new JFrame();
-                JOptionPane.showMessageDialog(frame,"Datos Actualizados");
-            } else {
-                JFrame frame = new JFrame();
-                JOptionPane.showMessageDialog(frame,"Error de Datos");
-            }
+        try {
+            
+            Categoria mandaCat = new Categoria();
+        String cat = categoria.getSelectedItem().toString();
+        con.Conectar();
+        mandaCat = controlPro.buscaCategoriaNombre(con, cat);
+        con.CerrarConexion();
+        
+        String cod = codigo.getText();
+        String sto = stock.getText();
+        String pre = precio.getText();
+        
+        int codd = Integer.parseInt(cod);
+        String nom = nombre.getText();
+        int stoo = Integer.parseInt(sto);
+        double pree = Double.parseDouble(pre);
+        String ivaa = iva.getText();
+        int catnom = mandaCat.getId();
+        
+        con.Conectar();
+        controlPro.actualizarProducto(con, codd, nom, catnom, stoo, pree, ivaa); 
+        con.CerrarConexion();
+        
+        javax.swing.JOptionPane.showMessageDialog(null, "Producto Actualizado", "Exito", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+            
+        } catch (Exception e) {
+            javax.swing.JOptionPane.showMessageDialog(null, "Sin Codigo de Identificacion", "Error de codigo", javax.swing.JOptionPane.WARNING_MESSAGE);
+        
+        }
+        
     }
 
+    
     private void buscar() {
-        String idPro = codigo.getText();
+        try {
+            String idPro = codigo.getText();
         int id = Integer.parseInt(idPro);
         Producto pro = new Producto();
         con.Conectar();
         pro = controlPro.buscarProducto(con, id);
         con.CerrarConexion();
         if(pro.getId() >0 ){
+                
+            categoria.setEnabled(true);
+            String stockP = Integer.toString(pro.getStock());
+            String precioP = Double.toString(pro.getPrecio());
+            
+            codigo.setEnabled(false);
             nombre.setText(pro.getNombre());
-            
-            
-            
-        } else 
-            javax.swing.JOptionPane.showMessageDialog(null, "Producto no encontrado", "Not Found", javax.swing.JOptionPane.WARNING_MESSAGE);
-    
+            categoria.setSelectedItem(pro.getCategoria().getNombre());
+            stock.setText(stockP);
+            precio.setText(precioP);
+            iva.setText(pro.getIdentificarIVA());
+        }
+        } catch (Exception e) {
+        javax.swing.JOptionPane.showMessageDialog(null, "Campo Codigo Vacio ", "Error", javax.swing.JOptionPane.WARNING_MESSAGE);
+        
+        }
     }
-
-    
-    
+        
+        
+            
+          //  System.out.println("datos del producto: " + pro);
+          //  System.out.println("\n datos de categoria: " + pro.getCategoria());
+           
+        
     private void consultar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int a = 1;
+        VntStockConsultar consultar = new VntStockConsultar(user, a);
+        consultar.setVisible(true);
+        setVisible(false);
+         
     }
     
 }

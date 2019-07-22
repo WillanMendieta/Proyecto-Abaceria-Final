@@ -74,7 +74,7 @@ public class VntGestionPro extends JFrame implements ActionListener {
        ImageIcon iconoEm = new ImageIcon("src/ima/icono/eliPro.png");
        // Se da las dimenciones del icono que va en el boton
        ImageIcon iconoEmple = new ImageIcon(iconoEm.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_DEFAULT));
-        JButton EliminarProducto= new JButton("Eliminar Producto");
+        JButton EliminarProducto= new JButton("Deshabilitar Producto");
         //Se agrega el icono al boton
         EliminarProducto.setIcon(iconoEmple);
         //Se da La ubicacion del texto en el boton

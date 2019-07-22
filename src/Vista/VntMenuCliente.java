@@ -132,10 +132,10 @@ cp.add(imagenTablero);
     }
     
           private void llamarActualizarDatosCliente() {
-        VntActualizarDatosCliente actualizaCli = new VntActualizarDatosCliente(user);
-        actualizaCli.setVisible(true);
-        setVisible(false);
-   }
+          actualizarDatosCliente cliV = new actualizarDatosCliente(user);
+          cliV.setVisible(true);
+              setVisible(false);
+          }
           
             private void llamarAgregarCliente() {
                VntCliente  cliente=new VntCliente(user);
@@ -144,7 +144,6 @@ cp.add(imagenTablero);
     }
             
               private void Regresar() {
-        String u = null;
         VntMenuPrincipalAdministrador  menu=new VntMenuPrincipalAdministrador(user);
                menu.setVisible(true);
                setVisible(false);
