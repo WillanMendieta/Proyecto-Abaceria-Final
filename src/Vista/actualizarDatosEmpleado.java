@@ -6,8 +6,8 @@
 package Vista;
 
 import Conexion.conexionDB;
-import Controlador.ControlProducto;
-import modelo.Usuario;
+import Controlador.*;
+import modelo.*;
 
 /**
  *
@@ -17,15 +17,16 @@ public class actualizarDatosEmpleado extends javax.swing.JFrame {
 
     
       Usuario user;
-    ControlProducto controlPro ;
+    ControlPersona controlPer ;
     conexionDB con = new conexionDB();
+    int id;
     
     public actualizarDatosEmpleado(Usuario usuario) {
         initComponents();
         user = usuario;
-        controlPro = new ControlProducto();
+        controlPer = new ControlPersona();
         setLocationRelativeTo(null);
-        setTitle("Actualizar Datos del Emopleado");
+        setTitle("Actualizar Datos de un Empleado");
     }
 
     /**
@@ -58,6 +59,12 @@ public class actualizarDatosEmpleado extends javax.swing.JFrame {
         jTextContraseña = new javax.swing.JTextField();
         jTextCargo = new javax.swing.JTextField();
         jButtonBuscar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        datos = new javax.swing.JLabel();
+        info = new javax.swing.JLabel();
+        info2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -80,6 +87,11 @@ public class actualizarDatosEmpleado extends javax.swing.JFrame {
         jLabel9.setText("Cargo");
 
         jButtonActualizarDatos.setText("Actualizar Datos");
+        jButtonActualizarDatos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonActualizarDatosActionPerformed(evt);
+            }
+        });
 
         jButtonRegresar.setText("Regresar");
         jButtonRegresar.addActionListener(new java.awt.event.ActionListener() {
@@ -88,7 +100,29 @@ public class actualizarDatosEmpleado extends javax.swing.JFrame {
             }
         });
 
-        jButtonBuscar.setText("Buscar Empleado");
+        jButtonBuscar.setText("Buscar por Cedula");
+        jButtonBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBuscarActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Buscar por Nombre");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("E : empleado");
+
+        jLabel10.setText("A : administrador");
+
+        datos.setText("Datos de un:");
+
+        info.setText("Info.");
+
+        info2.setText("-");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -101,7 +135,11 @@ public class actualizarDatosEmpleado extends javax.swing.JFrame {
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextConvencional, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(73, 73, 73)
+                        .addComponent(jButtonActualizarDatos)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButtonRegresar)
+                        .addGap(52, 52, 52))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
@@ -129,25 +167,32 @@ public class actualizarDatosEmpleado extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jTextNombre))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel9)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jTextCargo))
-                                    .addComponent(jLabel8))
+                                .addComponent(jLabel8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextContraseña)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(73, 73, 73)
-                        .addComponent(jButtonActualizarDatos)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButtonRegresar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(jButtonBuscar)))
-                .addGap(52, 52, 52))
+                                .addComponent(jTextContraseña))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel10)
+                                    .addComponent(jLabel1))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(100, 100, 100)
+                                .addComponent(datos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(54, 54, 54)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jButtonBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(info2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(info, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,19 +203,26 @@ public class actualizarDatosEmpleado extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabelCedula)
                             .addComponent(jTextCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButtonBuscar))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(jTextNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(jTextApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(jTextDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jButtonBuscar)
+                            .addComponent(info, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jTextNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jButton1))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jTextApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jTextDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addComponent(info2)))
                         .addGap(10, 10, 10)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
@@ -182,22 +234,30 @@ public class actualizarDatosEmpleado extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel7))
                     .addComponent(jTextUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jTextContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel9)
-                            .addComponent(jTextCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel8)
+                            .addComponent(jTextContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(13, 13, 13)
+                                .addComponent(jLabel1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jTextCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel9))))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(14, 16, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                        .addComponent(datos)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButtonActualizarDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButtonRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jButtonRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10))
                         .addGap(21, 21, 21))))
         );
 
@@ -211,11 +271,194 @@ public class actualizarDatosEmpleado extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButtonRegresarActionPerformed
 
+    private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
+         if(jTextCedula.getText().isEmpty()){
+            javax.swing.JOptionPane.showMessageDialog(null, "Campo Cedula Vacio", "Error de Campos", javax.swing.JOptionPane.WARNING_MESSAGE);
+    
+         }else{
+            Usuario per = new Usuario();
+        jTextNombre.setText("");
+         con.Conectar();
+        per = controlPer.buscarEmpleadoDatos(con, jTextCedula.getText(), jTextNombre.getText());
+        con.CerrarConexion();
+        System.out.println("datos : " + per);
+             try {
+                 id = per.getId();
+                 if(per.getCargo().equalsIgnoreCase("C")){
+        jTextCedula.setText("");
+        jTextNombre.setText("");
+        jTextApellido.setText("");
+        jTextDireccion.setText("");
+        jTextConvencional.setText("");
+        jTextCelular.setText("");
+        jTextCargo.setText("");
+        jTextUsuario.setText("");
+        jTextContraseña.setText("");
+        info.setText("No se puede editar informacion");
+        info2.setText("de un cliente en esta ventana");
+            
+        }else if(per.getCargo().equalsIgnoreCase("A")){
+                datos.setText("Datos de un: Administrador");
+                jTextCedula.setText(per.getCedula());
+                jTextNombre.setText(per.getNombre());
+                jTextApellido.setText(per.getApellido());
+                jTextDireccion.setText(per.getDireccion());
+                jTextConvencional.setText(per.getTelefonoConvencional());
+                jTextCelular.setText(per.getTelefonoCelular());
+                jTextUsuario.setText(per.getUsuario());
+                jTextContraseña.setText(per.getContraseña());
+                jTextCargo.setText(per.getCargo());
+                
+        }else if(per.getCargo().equalsIgnoreCase("E")){
+            jTextCedula.setText(per.getCedula());
+            jTextNombre.setText(per.getNombre());
+            jTextApellido.setText(per.getApellido());
+            jTextDireccion.setText(per.getDireccion());
+                jTextConvencional.setText(per.getTelefonoConvencional());
+                jTextCelular.setText(per.getTelefonoCelular());
+                jTextUsuario.setText(per.getUsuario());
+                jTextContraseña.setText(per.getContraseña());
+                jTextCargo.setText(per.getCargo());
+            datos.setText("Datos de un: Empledado");
+        
+        }
+             } catch (Exception e) {
+                  javax.swing.JOptionPane.showMessageDialog(null, "Empleado no Encontrado", "Error", javax.swing.JOptionPane.WARNING_MESSAGE);
+         jTextCedula.setText("");
+        jTextNombre.setText("");
+        jTextApellido.setText("");
+        jTextDireccion.setText("");
+        jTextConvencional.setText("");
+        jTextCelular.setText("");
+        jTextCargo.setText("");
+        jTextUsuario.setText("");
+        jTextContraseña.setText("");
+             }
+             }
+        
+        
+    }//GEN-LAST:event_jButtonBuscarActionPerformed
+
+    
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+          if(jTextNombre.getText().isEmpty()){
+            javax.swing.JOptionPane.showMessageDialog(null, "Campo Nombre Vacio", "Error de Campos", javax.swing.JOptionPane.WARNING_MESSAGE);
+          }else{
+              Usuario per = new Usuario();
+              jTextCedula.setText("");
+                con.Conectar();
+        per = controlPer.buscarEmpleadoDatos(con, jTextCedula.getText(), jTextNombre.getText());
+        con.CerrarConexion();
+        System.out.println("Datos : " +per);
+        System.out.println("1");
+              try {
+                  id = per.getId();
+                   if(per.getCargo().equalsIgnoreCase("C")){
+        jTextCedula.setText("");
+        jTextNombre.setText("");
+        jTextApellido.setText("");
+        jTextDireccion.setText("");
+        jTextConvencional.setText("");
+        jTextCelular.setText("");
+        jTextCargo.setText("");
+        jTextUsuario.setText("");
+        jTextContraseña.setText("");
+        info.setText("No se puede editar informacion");
+        info2.setText("de un cliente en esta ventana");
+            
+        }else if(per.getCargo().equalsIgnoreCase("A")){
+                datos.setText("Datos de un: Administrador");
+                jTextCedula.setText(per.getCedula());
+                jTextNombre.setText(per.getNombre());
+                jTextApellido.setText(per.getApellido());
+                jTextDireccion.setText(per.getDireccion());
+                jTextConvencional.setText(per.getTelefonoConvencional());
+                jTextCelular.setText(per.getTelefonoCelular());
+                jTextUsuario.setText(per.getUsuario());
+                jTextContraseña.setText(per.getContraseña());
+                jTextCargo.setText(per.getCargo());
+                
+        }else if(per.getCargo().equalsIgnoreCase("E")){
+            jTextCedula.setText(per.getCedula());
+            jTextNombre.setText(per.getNombre());
+            jTextApellido.setText(per.getApellido());
+            jTextDireccion.setText(per.getDireccion());
+                jTextConvencional.setText(per.getTelefonoConvencional());
+                jTextCelular.setText(per.getTelefonoCelular());
+                jTextUsuario.setText(per.getUsuario());
+                jTextContraseña.setText(per.getContraseña());
+                jTextCargo.setText(per.getCargo());
+            datos.setText("Datos de un: Empledado");
+        }
+              } catch (Exception e) {
+                  javax.swing.JOptionPane.showMessageDialog(null, "Empleado no Encontrado", "Error", javax.swing.JOptionPane.WARNING_MESSAGE);
+                  jTextCedula.setText("");
+        jTextNombre.setText("");
+        jTextApellido.setText("");
+        jTextDireccion.setText("");
+        jTextConvencional.setText("");
+        jTextCelular.setText("");
+        jTextCargo.setText("");
+        jTextUsuario.setText("");
+        jTextContraseña.setText("");
+              }
+          }
+       
+        System.out.println("sale");
+        
+
+
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButtonActualizarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActualizarDatosActionPerformed
+         if(jTextNombre.getText().isEmpty() || jTextCedula.getText().isEmpty() || jTextApellido.getText().isEmpty()) {
+             javax.swing.JOptionPane.showMessageDialog(null, "Nombre, Apellido, Cedula no pueden ser nulos", "Error de Campos", javax.swing.JOptionPane.WARNING_MESSAGE);
+    
+         }else{
+             try {
+                 con.Conectar();
+        controlPer.actualizarDatosEmpleado(con, id, jTextCedula.getText(), jTextNombre.getText(),
+                                                jTextApellido.getText(), jTextDireccion.getText(), 
+                                                jTextConvencional.getText(), jTextCelular.getText(), jTextUsuario.getText(),
+                                                jTextContraseña.getText(), jTextCargo.getText());
+        con.CerrarConexion();
+        javax.swing.JOptionPane.showMessageDialog(null, "Datos Actualizados", "Update", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+        jTextCedula.setText("");
+        jTextNombre.setText("");
+        jTextApellido.setText("");
+        jTextDireccion.setText("");
+        jTextConvencional.setText("");
+        jTextCelular.setText("");
+        jTextCargo.setText("");
+        jTextUsuario.setText("");
+        jTextContraseña.setText("");
+        
+             } catch (Exception e) {
+                 javax.swing.JOptionPane.showMessageDialog(null, "Verificar Longitud de: contraseña, Tel:convencional, Tel.Celular", "Error", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+        
+             }
+         }
+        
+
+
+
+
+
+
+    }//GEN-LAST:event_jButtonActualizarDatosActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel datos;
+    private javax.swing.JLabel info;
+    private javax.swing.JLabel info2;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonActualizarDatos;
     private javax.swing.JButton jButtonBuscar;
     private javax.swing.JButton jButtonRegresar;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
