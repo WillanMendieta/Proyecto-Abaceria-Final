@@ -64,7 +64,7 @@ public class VntAgregarProducto extends JFrame implements ActionListener  {
     private void componentes() {
       setTitle("Agregar Producto");
         
-	setSize(650,500);
+	setSize(800,470);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 	Container cp= getContentPane();
@@ -191,15 +191,18 @@ public class VntAgregarProducto extends JFrame implements ActionListener  {
         consultar.addActionListener(this);
         consultar.setActionCommand("consulta");
 	panelConfirmar.add(consultar, gb);
-        
-        verMensaje = new JLabel("");
-        gb.gridx=1 ;
-        gb.gridy=1;
-        panelConfirmar.add(verMensaje);
-        
         gb.gridx=1;
         gb.gridy=6;
         imagenFondo.add(panelConfirmar, gb);
+        
+        JPanel panelMensaje = new JPanel();
+        verMensaje = new JLabel("");
+        gb.gridx=0 ;
+        gb.gridy=0;
+        panelMensaje.add(verMensaje);
+        gb.gridx=1;
+        gb.gridy=7;
+        imagenFondo.add( panelMensaje,gb);
         
         cp.add(imagenFondo);
         
@@ -221,9 +224,11 @@ public class VntAgregarProducto extends JFrame implements ActionListener  {
                   
                   if(ivaTex.isSelected()==true) {
                       verIVA = true;
+                      System.out.println("Settea para iva");
                       
                   } else if (ivaTex.isSelected()==false){
                       verIVA = false;
+                      System.out.println("settea sin iva");
               }
                   break;
                   
@@ -259,6 +264,7 @@ public class VntAgregarProducto extends JFrame implements ActionListener  {
         
         
         if (verIVA == true){
+            System.out.println("producto con iva");
             try {
                 String cod = codigo.getText();
             String pre = precioTex.getText();
@@ -288,6 +294,7 @@ public class VntAgregarProducto extends JFrame implements ActionListener  {
             
             
         }else if(verIVA == false){
+            System.out.println("producto sin iva");
             try {
                 String cod = codigo.getText();
             String pre = precioTex.getText();
@@ -297,7 +304,7 @@ public class VntAgregarProducto extends JFrame implements ActionListener  {
             int des = 0;
             double pree = Double.parseDouble(pre);
             int stock =0;
-            String iva = "I";
+            String iva = "S";
             int catnom = mandaCat.getId();
             String estado = "A";
             String tipo = "N";
