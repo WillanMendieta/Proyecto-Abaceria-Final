@@ -6,7 +6,10 @@
 package Vista;
 
 import Conexion.conexionDB;
+import Controlador.ControlPersona;
 import Controlador.ControlProducto;
+import modelo.Cliente;
+import modelo.Persona;
 import modelo.Usuario;
 
 /**
@@ -17,14 +20,14 @@ public class actualizarDatosCliente extends javax.swing.JFrame {
 
     
       Usuario user;
-    ControlProducto controlPro ;
+    ControlPersona controlPer ;
     conexionDB con = new conexionDB();
-    
+    int id;
     
     public actualizarDatosCliente(Usuario usuario) {
         initComponents();
         user = usuario;
-        controlPro = new ControlProducto();
+        controlPer = new ControlPersona();
         setLocationRelativeTo(null);
         setTitle("Actualizar Datos del Cliente");
     }
@@ -53,6 +56,9 @@ public class actualizarDatosCliente extends javax.swing.JFrame {
         jButtonBuscar = new javax.swing.JButton();
         jButtonActualizar = new javax.swing.JButton();
         jButtonRegresar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        presentaDatos = new javax.swing.JLabel();
+        datos = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -68,9 +74,19 @@ public class actualizarDatosCliente extends javax.swing.JFrame {
 
         jLabel6.setText("Tel.Celular:");
 
-        jButtonBuscar.setText("Buscar Cliente");
+        jButtonBuscar.setText("Buscar por Cedula");
+        jButtonBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBuscarActionPerformed(evt);
+            }
+        });
 
         jButtonActualizar.setText("Actualizar Datos");
+        jButtonActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonActualizarActionPerformed(evt);
+            }
+        });
 
         jButtonRegresar.setText("Regresar");
         jButtonRegresar.addActionListener(new java.awt.event.ActionListener() {
@@ -78,6 +94,15 @@ public class actualizarDatosCliente extends javax.swing.JFrame {
                 jButtonRegresarActionPerformed(evt);
             }
         });
+
+        jButton1.setText("Buscar por Nombre");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        datos.setText("Datos");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -111,8 +136,10 @@ public class actualizarDatosCliente extends javax.swing.JFrame {
                                 .addComponent(jLabel1)
                                 .addGap(18, 18, 18)
                                 .addComponent(jTextCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
-                        .addComponent(jButtonBuscar))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 142, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButtonBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -122,14 +149,22 @@ public class actualizarDatosCliente extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addComponent(jTextCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(48, 48, 48)
+                                .addComponent(presentaDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(datos, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 21, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(52, 52, 52)
+                .addGap(36, 36, 36)
+                .addComponent(presentaDatos)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(datos)
+                .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jTextCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -137,7 +172,8 @@ public class actualizarDatosCliente extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -158,7 +194,7 @@ public class actualizarDatosCliente extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonRegresar)
                     .addComponent(jButtonActualizar))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         pack();
@@ -171,8 +207,162 @@ public class actualizarDatosCliente extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButtonRegresarActionPerformed
 
+    private void jButtonActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActualizarActionPerformed
+         if(jTextNombre.getText().isEmpty() || jTextCedula.getText().isEmpty() || jTextApellido.getText().isEmpty()) {
+             javax.swing.JOptionPane.showMessageDialog(null, "Nombre, Apellido, Cedula no pueden ser nulos", "Error de Campos", javax.swing.JOptionPane.WARNING_MESSAGE);
+    
+         }else{
+             try {
+             
+            con.Conectar();
+            controlPer.actualizarDatosCliente(con, id, jTextCedula.getText(), jTextNombre.getText(), jTextApellido.getText(), jTextDireccion.getText(), jTextConvencional.getText(), jTextCelular.getText());
+            con.CerrarConexion();
+           
+            javax.swing.JOptionPane.showMessageDialog(null, "Datos Actualizados", "Update", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+        
+             } catch (Exception e) {
+                  javax.swing.JOptionPane.showMessageDialog(null, "Verificar la Longitud los Telefonos", "Error", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+        
+             }
+             
+             
+         } 
+        
+    }//GEN-LAST:event_jButtonActualizarActionPerformed
+
+    private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
+        Cliente per = new Cliente();
+        jTextNombre.setText("");
+         con.Conectar();
+        per = controlPer.buscarCliente(con, jTextCedula.getText(), jTextNombre.getText());
+        con.CerrarConexion();
+        
+        System.out.println("entra");
+        if(jTextCedula.getText().isEmpty()){
+            javax.swing.JOptionPane.showMessageDialog(null, "Campo Cedula Vacio", "Error de Campos", javax.swing.JOptionPane.WARNING_MESSAGE);
+    
+        }else{
+            
+            try {
+                if(per.getCargo().equalsIgnoreCase("C")){
+                    id = per.getId();
+                datos.setText("Se presentan datos de un Cliente");
+                
+                System.out.println("2");
+       
+                System.out.println(per);
+        
+        jTextCedula.setText(per.getCedula());
+        jTextNombre.setText(per.getNombre());
+        jTextApellido.setText(per.getApellido());
+        jTextDireccion.setText(per.getDireccion());
+        jTextConvencional.setText(per.getTelefonoConvencional());
+        jTextCelular.setText(per.getTelefonoCelular());
+        System.out.println("3");
+                
+            
+        }else if(per.getCargo().equalsIgnoreCase("A")){
+            id = per.getId();
+            javax.swing.JOptionPane.showMessageDialog(null, "Restriccion de Datos", "Restriccion", javax.swing.JOptionPane.WARNING_MESSAGE);
+            datos.setText("No puede acceder a datos de un Administrador desde esta Ventana");
+             jTextCedula.setText("");
+        jTextNombre.setText("");
+        jTextApellido.setText("");
+        jTextDireccion.setText("");
+        jTextConvencional.setText("");
+        jTextCelular.setText("");
+            
+        }else if(per.getCargo().equalsIgnoreCase("E")){
+            javax.swing.JOptionPane.showMessageDialog(null, "Restriccion de Datos", "Restricccion", javax.swing.JOptionPane.WARNING_MESSAGE);
+            datos.setText("No puede acceder a datos de un Empleado desde esta Ventana");
+             jTextCedula.setText("");
+        jTextNombre.setText("");
+        jTextApellido.setText("");
+        jTextDireccion.setText("");
+        jTextConvencional.setText("");
+        jTextCelular.setText("");
+        
+        }
+        
+            } catch (Exception e) {
+                
+                javax.swing.JOptionPane.showMessageDialog(null, "Cliente no Encontrado", "Error de Busqueda", javax.swing.JOptionPane.WARNING_MESSAGE);
+    
+            }
+            
+        }
+        System.out.println("sale");
+    }//GEN-LAST:event_jButtonBuscarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+        Cliente per = new Cliente();
+        jTextCedula.setText("");
+        System.out.println(per);
+         con.Conectar();
+        per = controlPer.buscarCliente(con, jTextCedula.getText(), jTextNombre.getText());
+        con.CerrarConexion();
+        System.out.println(per);
+        
+        System.out.println("entra");
+        if(jTextNombre.getText().isEmpty()){
+            javax.swing.JOptionPane.showMessageDialog(null, "Campo Nombre Vacio", "Error de Campos", javax.swing.JOptionPane.WARNING_MESSAGE);
+    
+        }else{
+            System.out.println("1");
+            try {
+                if(per.getCargo().equalsIgnoreCase("C")){
+                    id = per.getId();
+                datos.setText("Se presentan datos de un Cliente");
+                
+                System.out.println("2");
+       
+        
+        jTextCedula.setText(per.getCedula());
+        jTextNombre.setText(per.getNombre());
+        jTextApellido.setText(per.getApellido());
+        jTextDireccion.setText(per.getDireccion());
+        jTextConvencional.setText(per.getTelefonoConvencional());
+        jTextCelular.setText(per.getTelefonoCelular());
+        System.out.println("3");
+                
+            
+        }else if(per.getCargo().equalsIgnoreCase("A")){
+            id = per.getId();
+            javax.swing.JOptionPane.showMessageDialog(null, "Restriccion de Datos", "Restriccion", javax.swing.JOptionPane.WARNING_MESSAGE);
+            datos.setText("No puede acceder a datos de un Administrador desde esta Ventana");
+            jTextCedula.setText("");
+        jTextNombre.setText("");
+        jTextApellido.setText("");
+        jTextDireccion.setText("");
+        jTextConvencional.setText("");
+        jTextCelular.setText("");
+            
+        }else if(per.getCargo().equalsIgnoreCase("E")){
+            javax.swing.JOptionPane.showMessageDialog(null, "Restriccion de Datos", "Restricccion", javax.swing.JOptionPane.WARNING_MESSAGE);
+            datos.setText("No puede acceder a datos de un Empleado desde esta Ventana");
+             jTextCedula.setText("");
+        jTextNombre.setText("");
+        jTextApellido.setText("");
+        jTextDireccion.setText("");
+        jTextConvencional.setText("");
+        jTextCelular.setText("");
+        }
+        
+            } catch (Exception e) {
+                
+                javax.swing.JOptionPane.showMessageDialog(null, "Cliente no Encontrado", "Error de Busqueda", javax.swing.JOptionPane.WARNING_MESSAGE);
+    
+            }
+            
+        }
+        System.out.println("sale");
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel datos;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonActualizar;
     private javax.swing.JButton jButtonBuscar;
     private javax.swing.JButton jButtonRegresar;
@@ -188,5 +378,6 @@ public class actualizarDatosCliente extends javax.swing.JFrame {
     private javax.swing.JTextField jTextConvencional;
     private javax.swing.JTextField jTextDireccion;
     private javax.swing.JTextField jTextNombre;
+    private javax.swing.JLabel presentaDatos;
     // End of variables declaration//GEN-END:variables
 }
