@@ -10,6 +10,8 @@ package modelo;
  * @author steve
  */
 public class RegistraCompra {
+    private int  id ;
+    private  String fechaIn;
     
     
 }
