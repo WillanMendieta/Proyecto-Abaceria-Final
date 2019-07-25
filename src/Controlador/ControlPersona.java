@@ -96,10 +96,12 @@ public class ControlPersona {
         
     }
 
-    public void agregarEmpleado(conexionDB con, String cedula, String nombre, String apellido, String direccion , String convencional, String celular, String usuario, String contra, String cargo, String estado) {
-         try {
+    public void agregarEmpleado(conexionDB con, String cedula, String nombre, String apellido, String direccion , String convencional, String celular, String usuario, String contra, String cargo, String estado, String des) {
+         
+        System.out.println("datoss... " + cedula+ nombre+ apellido + direccion+ convencional +celular+  usuario + contra+  cargo+  estado);
+        try {
             psentencia= con.getConexion().prepareStatement("INSERT INTO "
-                    + "aba_personas VALUES (per_id_seq.nextval,?,?,?,?,?,?,?,?,?,?)");
+                    + "aba_personas VALUES (per_id_seq.nextval,?,?,?,?,?,?,?,?,?,?,?)");
             psentencia.setString(1, cedula);
             psentencia.setString(2, nombre);
             psentencia.setString(3, apellido);
@@ -110,6 +112,7 @@ public class ControlPersona {
             psentencia.setString(8, convencional);
             psentencia.setString(9, celular);
             psentencia.setString(10, estado);
+            psentencia.setString(11, des);
             
             ///Se debe ejecutar la sentencia de Insert
             psentencia.executeUpdate();
@@ -160,7 +163,6 @@ public class ControlPersona {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
     }
 
     public Cliente buscarCliente(conexionDB con, String jTextCedula, String jTextNombre) {
@@ -291,6 +293,29 @@ public class ControlPersona {
             psentencia.setString(9, cargo);
             psentencia.setInt(10, id);
             //Se ejecuta la sentencia de INSERT
+            psentencia.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    
+    
+    
+    
+    
+    }
+
+    public void eliminarEmpleado(conexionDB con, int id, String cedula, String nombre, String descripcion, String estado ) {
+        try {
+            String sentenciaInsercion = "update aba_personas set "
+                    + "per_descripcion =?,"
+                    + "per_estado=?"
+                    + " where per_id=?";
+            psentencia = con.getConexion().prepareStatement(sentenciaInsercion);
+            psentencia.setString(1, descripcion);
+            psentencia.setString(2, estado);
+            psentencia.setInt(3, id);
+            //Se ejecuta la sentencia de Update
             psentencia.executeUpdate();
 
         } catch (SQLException e) {
