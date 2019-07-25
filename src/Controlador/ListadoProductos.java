@@ -12,6 +12,7 @@ import modelo.*;
  *
  * @author Macao
  */
+
 public class ListadoProductos extends AbstractTableModel {
     
     public String[] columnas = {"Codigo" , "Nombre" , "Stock" , "Precio" , "Descuento" , "IVA" , "Estado" , "Descripcion" , "Categoria" };
