@@ -5,9 +5,11 @@
  */
 package Conexion;
 
+import Vista.VntLogin;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import modelo.Usuario;
 
 /**
  *
@@ -19,30 +21,35 @@ public class conexionDB {
     private String password;
     private String url;
     private Connection conexion=null;
+     Usuario user = new Usuario(); 
 
-    public void Conectar(){
-        
-        url="jdbc:oracle:thin:@localhost:1521:xe";
-        username="sistemaABA";
-        password="admin01";
-        
-        try{
-            
-            // registers Oracle JDBC driver - though this is no longer required
-            // since JDBC 4.0, but added here for backward compatibility
-            
-            //Class.forName("oracle.jdbc.OracleDriver");
-            
-            this.setConexion(DriverManager.getConnection(this.getUrl(),this.getUsername(), this.getPassword()));
-        }
-        /*catch(ClassNotFoundException e){
-            e.printStackTrace();
-        }*/
-        catch(SQLException e){
-            e.printStackTrace();
-        }
-                
-    }
+  
+     
+     
+      public void Conectar(){
+      
+          
+  System.out.println("datos: " + user);        
+          
+          
+      
+           url="jdbc:oracle:thin:@localhost:1521:orcl";
+             username="wmendietam";
+      password="wmendietam";
+              
+     
+      
+    try {
+
+           this.setConexion(DriverManager.getConnection(this.getUrl(),this.getUsername(),this.getPassword()));
+       } catch (SQLException e) {
+           e.printStackTrace();
+       }
+    
+ 
+   } 
+      
+    
     
     
     public void CerrarConexion(){
@@ -55,7 +62,7 @@ public class conexionDB {
                 e.printStackTrace();
             }
     }
-    
+
     public String getUsername() {
         return username;
     }
@@ -72,6 +79,14 @@ public class conexionDB {
         this.password = password;
     }
 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
     public Connection getConexion() {
         return conexion;
     }
@@ -80,12 +95,6 @@ public class conexionDB {
         this.conexion = conexion;
     }
     
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
     
+   
 }
