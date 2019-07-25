@@ -36,8 +36,11 @@ public class VntCliente extends JFrame implements ActionListener {
     Usuario user;
     ControlPersona controlPer ;
     conexionDB con = new conexionDB();
-    public VntCliente(Usuario usuario){
+    static int cambio;
+    
+    public VntCliente(Usuario usuario, int a){
         componentes();
+        cambio = a;
         user = usuario;
         controlPer = new ControlPersona();
         user = usuario;
@@ -177,9 +180,18 @@ public class VntCliente extends JFrame implements ActionListener {
 }
 
     private void Regresar() {
-        VntMenuCliente ver = new VntMenuCliente(user);
+        if(cambio == 1){
+            VntMenuCliente ver = new VntMenuCliente(user);
         ver.setVisible(true);
         setVisible(false);
+            
+        }else if(cambio ==2){
+            Facturacion fac = new Facturacion(user);
+            fac.setVisible(true);
+            setVisible(false);
+        }
+        
+        
     }
 
     private void llamarMetodoAgregarCliente() {

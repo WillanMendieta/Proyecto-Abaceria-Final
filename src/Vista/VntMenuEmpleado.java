@@ -154,22 +154,21 @@ cp.add(imagenTablero);
     }
     
      private void llamarAgregarEmpleado() {
-        agregarEmpleado empleado = new agregarEmpleado(user);
+         int a = 1;
+        agregarEmpleado empleado = new agregarEmpleado(user, a);
              empleado.setVisible(true);
                setVisible(false);
          
     }
      
     private void llamarEliminarEmpleado() {
+        eliminarEmpleado eli = new eliminarEmpleado(user);
+        eli.setVisible(true);
+        setVisible(false);
         
-        VntEliminarEmpleado empleadoElimina = new VntEliminarEmpleado(user);
-               empleadoElimina.setVisible(true);
-               setVisible(false);
-  
     }
     
       private void Regresar() {
-        String u = null;
         VntMenuPrincipalAdministrador  menu=new VntMenuPrincipalAdministrador(user);
                menu.setVisible(true);
                setVisible(false);

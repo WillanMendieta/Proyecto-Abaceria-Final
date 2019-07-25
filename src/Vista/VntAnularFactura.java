@@ -5,11 +5,14 @@
  */
 package Vista;
 
+import Conexion.*;
+import Controlador.*;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,7 +20,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import modelo.Usuario;
+import modelo.*;
 
 /**
  *
@@ -26,11 +29,15 @@ import modelo.Usuario;
 public class VntAnularFactura extends JFrame implements ActionListener {
     private JTextField codigo;
     private JTextField detalles;
-    Usuario user;
+      Usuario user;
+    ControlFactura controlFac ;
+    conexionDB con = new conexionDB();
+    FacturaCabecera fac;
     
     public VntAnularFactura( Usuario usuario){
         componentes();
         user = usuario;
+        controlFac = new ControlFactura();
     }
 
     private void componentes() {
@@ -73,7 +80,7 @@ public class VntAnularFactura extends JFrame implements ActionListener {
 	imagenFondo.add(buscarBoton, gb);
         
         //Etiqueta con el anunciasdo de contraseña
-        JLabel detallesJ = new JLabel("Detalles de Aulacion:");
+        JLabel detallesJ = new JLabel("Detalles de Anulacion:");
 	gb.gridx=0;
 	gb.gridy=1;
         detallesJ.setForeground(Color.red);
@@ -103,8 +110,7 @@ public class VntAnularFactura extends JFrame implements ActionListener {
         cancelar.addActionListener(this);
         cancelar.setActionCommand("cancelar");
 	panelBotones.add(cancelar, gb);
-        
-        panelBotones.setBackground(Color.red);
+     
         gb.gridx=1;
 	gb.gridy=2;
         imagenFondo.add(panelBotones,gb);
@@ -144,28 +150,83 @@ public class VntAnularFactura extends JFrame implements ActionListener {
     }
 
     private void llamarMetodoAnular() {
-          String u = codigo.getText();
-            if(u.equals("1") ){
-                JFrame frame = new JFrame();
-                JOptionPane.showMessageDialog(frame,"Factura Anulada");
-            } else {
-                JFrame frame = new JFrame();
-                JOptionPane.showMessageDialog(frame,"Factura no Anulada");
-            }
-    
-    
+          if(codigo.getText().isEmpty() || detalles.getText().isEmpty()){
+              javax.swing.JOptionPane.showMessageDialog(null, "Campo Detalles Vacio", "Error", javax.swing.JOptionPane.WARNING_MESSAGE);
+            
+          }else{
+              int conteo=0;
+              String estado="A";
+              ArrayList<FacturaDetalle> manda = new ArrayList<>();
+              
+              
+              FacturaCabecera facc =  new FacturaCabecera();
+              con.Conectar();
+              facc = controlFac.buscarCodigoFacCab(con, codigo.getText());
+              con.CerrarConexion();
+              
+              con.Conectar();
+              conteo = controlFac.mandaConteo(con, facc.getId());
+              con.CerrarConexion();
+              
+              con.Conectar();
+              controlFac.Anular(con, facc.getId(), estado, detalles.getText());
+              con.CerrarConexion();
+              
+              con.Conectar();
+              manda = controlFac.buscarCantidad(con, facc.getId());
+              con.CerrarConexion();
+                    
+              for (int i = 0; i < conteo; i++) {
+                    con.Conectar();
+                    controlFac.AumentarStock(con, manda.get(i).getCantidad(), manda.get(i).getIdPro());
+                    con.CerrarConexion();
+              }
+               javax.swing.JOptionPane.showMessageDialog(null, "Factura Anulada", "Correcto", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+               codigo.setText("");
+               detalles.setText("");
+              }
+          
     }
 
     
     private void verificarFactura() {
-     String u = codigo.getText();
-            if(u.equals("1") ){
-                JFrame frame = new JFrame();
-                JOptionPane.showMessageDialog(frame,"Factura Encontrada");
-            } else {
-                JFrame frame = new JFrame();
-                JOptionPane.showMessageDialog(frame,"Factura no Encontrada");
+        if(codigo.getText().isEmpty()){
+            javax.swing.JOptionPane.showMessageDialog(null, "Campo Vacio", "Error", javax.swing.JOptionPane.WARNING_MESSAGE);
+            
+        }else{
+            
+            try {
+                FacturaCabecera facc =  new FacturaCabecera();
+                
+                con.Conectar();
+                facc = controlFac.buscarCodigoFacCab(con, codigo.getText());
+                con.CerrarConexion();
+                int verificar = Integer.parseInt(codigo.getText());
+                System.out.println("verificar: " + verificar);
+                System.out.println("faccc:  "+ facc.getId());
+                System.out.println("esatdo es :" + facc.getEstado());
+                
+                
+                if(facc.getId() == verificar){
+                    javax.swing.JOptionPane.showMessageDialog(null, "Factura Encontrada", "Encontrado", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+                    
+                    if(facc.getEstado().equalsIgnoreCase("A")){
+                    javax.swing.JOptionPane.showMessageDialog(null, "Esta Factura esta Anulada", "Factura Anulada", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+                    
+                    }
+                }else{
+                    javax.swing.JOptionPane.showMessageDialog(null, "Factura No Encontrada", "Error", javax.swing.JOptionPane.WARNING_MESSAGE);
+                    }
+                
+                    
+            } catch (Exception e) {
+                
+            
             }
+            }
+        
+        
+        
     }
 }
     

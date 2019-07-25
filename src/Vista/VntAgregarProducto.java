@@ -37,6 +37,10 @@ public class VntAgregarProducto extends JFrame implements ActionListener  {
     private JTextField precioTex;
     private JRadioButton ivaTex;
     private JLabel verMensaje;
+    private JLabel nacionalidadJ;
+    private JLabel nacionalidadJAnucio;
+    private JTextField nacionalidadT;
+    
     
     Usuario user;
     conexionDB con = new conexionDB();
@@ -64,7 +68,7 @@ public class VntAgregarProducto extends JFrame implements ActionListener  {
     private void componentes() {
       setTitle("Agregar Producto");
         
-	setSize(800,470);
+	setSize(600,370);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 	Container cp= getContentPane();
@@ -159,6 +163,23 @@ public class VntAgregarProducto extends JFrame implements ActionListener  {
         ivaTex.setActionCommand("iva Activado");
 	imagenFondo.add(ivaTex, gb);
         
+            //Etiqueta con el anunciado de telefono celular
+        nacionalidadJ  = new JLabel("Nacionalidad: ");
+	gb.gridx=0;
+	gb.gridy=5;
+        nacionalidadJ.setForeground(Color.GREEN);
+	imagenFondo.add(nacionalidadJ, gb);
+         //Espacio en blanco para ingresar el telefono convencional
+        nacionalidadT = new JTextField(2);
+	gb.gridx=1;
+	gb.gridy=5;
+	imagenFondo.add(nacionalidadT, gb);
+        
+        nacionalidadJAnucio = new JLabel("Nacionales: N / Extranjeros: E ");
+	gb.gridx=2;
+	gb.gridy=5;
+        nacionalidadJAnucio.setForeground(Color.BLUE);
+	imagenFondo.add(nacionalidadJAnucio, gb);
      
         
         JPanel panelBotones = new JPanel();
@@ -179,7 +200,7 @@ public class VntAgregarProducto extends JFrame implements ActionListener  {
 	panelBotones.add(Cancelar, gb);
         
         gb.gridx=1;
-	gb.gridy=5;
+	gb.gridy=6;
        imagenFondo.add(panelBotones,gb);
         
        
@@ -192,7 +213,7 @@ public class VntAgregarProducto extends JFrame implements ActionListener  {
         consultar.setActionCommand("consulta");
 	panelConfirmar.add(consultar, gb);
         gb.gridx=1;
-        gb.gridy=6;
+        gb.gridy=7;
         imagenFondo.add(panelConfirmar, gb);
         
         JPanel panelMensaje = new JPanel();
@@ -201,7 +222,7 @@ public class VntAgregarProducto extends JFrame implements ActionListener  {
         gb.gridy=0;
         panelMensaje.add(verMensaje);
         gb.gridx=1;
-        gb.gridy=7;
+        gb.gridy=8;
         imagenFondo.add( panelMensaje,gb);
         
         cp.add(imagenFondo);
@@ -307,7 +328,7 @@ public class VntAgregarProducto extends JFrame implements ActionListener  {
             String iva = "S";
             int catnom = mandaCat.getId();
             String estado = "A";
-            String tipo = "N";
+            String tipo = nacionalidadT.getText();
             String descrip = "";
             
             

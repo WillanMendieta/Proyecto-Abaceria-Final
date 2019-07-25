@@ -62,16 +62,22 @@ public class actualizarDatosCliente extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jLabel1.setForeground(new java.awt.Color(0, 0, 255));
         jLabel1.setText("Cedula:");
 
+        jLabel2.setForeground(new java.awt.Color(0, 0, 255));
         jLabel2.setText("Nombre:");
 
+        jLabel3.setForeground(new java.awt.Color(0, 0, 255));
         jLabel3.setText("Apellido:");
 
+        jLabel4.setForeground(new java.awt.Color(0, 0, 255));
         jLabel4.setText("Direccion:");
 
+        jLabel5.setForeground(new java.awt.Color(0, 0, 255));
         jLabel5.setText("Tel.Convencional:");
 
+        jLabel6.setForeground(new java.awt.Color(0, 0, 255));
         jLabel6.setText("Tel.Celular:");
 
         jButtonBuscar.setText("Buscar por Cedula");
@@ -136,7 +142,7 @@ public class actualizarDatosCliente extends javax.swing.JFrame {
                                 .addComponent(jLabel1)
                                 .addGap(18, 18, 18)
                                 .addComponent(jTextCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 142, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 159, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jButtonBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -154,7 +160,7 @@ public class actualizarDatosCliente extends javax.swing.JFrame {
                                 .addGap(48, 48, 48)
                                 .addComponent(presentaDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(datos, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 21, Short.MAX_VALUE)))
+                        .addGap(0, 38, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(

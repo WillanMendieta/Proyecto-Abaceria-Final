@@ -51,8 +51,10 @@ public class VntCategoria extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jLabel1.setForeground(new java.awt.Color(0, 0, 255));
         jLabel1.setText("Codigo: ");
 
+        jLabel2.setForeground(new java.awt.Color(0, 0, 255));
         jLabel2.setText("Nombre: ");
 
         jTextCodigo.addActionListener(new java.awt.event.ActionListener() {
@@ -61,6 +63,7 @@ public class VntCategoria extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setForeground(new java.awt.Color(255, 0, 0));
         jLabel3.setText("Nueva Categoria");
 
         jButton1.setText("Agregar");

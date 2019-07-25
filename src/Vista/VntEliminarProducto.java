@@ -211,6 +211,7 @@ public class VntEliminarProducto extends JFrame implements ActionListener {
     }
 
     private void verificarProducto() {
+        codigo.setText("");
         Producto pro = new Producto();
         String nombreP = nombre.getText();
         con.Conectar();
@@ -235,12 +236,27 @@ public class VntEliminarProducto extends JFrame implements ActionListener {
     }
 
     private void buscarCodigo() {
-        Producto pro = new Producto();
+        nombre.setText("");
+        
+        try {
+            Producto pro = new Producto();
         String codigoP = codigo.getText();
         int cod = Integer.parseInt(codigoP);
         con.Conectar();
         pro = controlPro.buscarProducto(con, cod);
         con.CerrarConexion();
-        nombre.setText(pro.getNombre());
+        if(pro.getId() == cod){
+            nombre.setText(pro.getNombre());
+            
+        }else{
+            javax.swing.JOptionPane.showMessageDialog(null, "Producto no encontrado", "Error", javax.swing.JOptionPane.WARNING_MESSAGE);
+    
+        }
+        
+        } catch (Exception e) {
+            javax.swing.JOptionPane.showMessageDialog(null, "Producto no encontrado", "Error", javax.swing.JOptionPane.WARNING_MESSAGE);
+    
+        }
+        
     }
 }

@@ -18,8 +18,10 @@ public class agregarEmpleado extends javax.swing.JFrame {
      Usuario user;
     ControlPersona controlPer ;
     conexionDB con = new conexionDB();
+    static int cambio;
     
-    public agregarEmpleado(Usuario usuario) {
+    public agregarEmpleado(Usuario usuario, int a) {
+        cambio = a;
         initComponents();
         user = usuario;
         controlPer = new ControlPersona();
@@ -61,22 +63,31 @@ public class agregarEmpleado extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jLabel1.setForeground(new java.awt.Color(0, 0, 255));
         jLabel1.setText("Cedula:");
 
+        jLabel2.setForeground(new java.awt.Color(0, 0, 255));
         jLabel2.setText("Nombre:");
 
+        jLabel3.setForeground(new java.awt.Color(0, 0, 255));
         jLabel3.setText("Apellido:");
 
+        jLabel4.setForeground(new java.awt.Color(0, 0, 255));
         jLabel4.setText("Direccion:");
 
+        jLabel5.setForeground(new java.awt.Color(0, 0, 255));
         jLabel5.setText("Tel.Convencional:");
 
+        jLabel6.setForeground(new java.awt.Color(0, 0, 255));
         jLabel6.setText("Tel.Celular:");
 
+        jLabel7.setForeground(new java.awt.Color(0, 0, 255));
         jLabel7.setText("Cargo:");
 
+        jLabel8.setForeground(new java.awt.Color(0, 0, 255));
         jLabel8.setText("Usuario:");
 
+        jLabel9.setForeground(new java.awt.Color(0, 0, 255));
         jLabel9.setText("Contraseña:");
 
         jLabel10.setText("Administrador: A");
@@ -198,9 +209,21 @@ public class agregarEmpleado extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegresarActionPerformed
-    VntMenuEmpleado empl = new VntMenuEmpleado(user);
-    empl.setVisible(true);
+    if(cambio == 1){
+        
+        VntMenuEmpleado empl = new VntMenuEmpleado(user);
+        empl.setVisible(true);
         setVisible(false);
+        
+        
+    }else if (cambio == 2){
+        Facturacion fac = new Facturacion(user);
+        fac.setVisible(true);
+        setVisible(false);
+    }
+        
+        
+        
     }//GEN-LAST:event_jButtonRegresarActionPerformed
 
     private void jButtonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregarActionPerformed
@@ -212,10 +235,11 @@ public class agregarEmpleado extends javax.swing.JFrame {
         }else{
             if(jTextCargo.getText().equals("A") || jTextCargo.getText().equals("E")){
             String estado = "A";
+            String des ="";
             con.Conectar();
             controlPer.agregarEmpleado(con, jTextCedula.getText(), jTextNombre.getText(), jTextApellido.getText(),
                                     jTextDireccion.getText(), jTextConvencional.getText(), jTextCelular.getText(), jTextUsuario.getText(),
-                                    jTextContraseña.getText(), jTextCargo.getText(), estado );
+                                    jTextContraseña.getText(), jTextCargo.getText(), estado , des );
             con.CerrarConexion();
             javax.swing.JOptionPane.showMessageDialog(null, "Empleado Agregado Correctamente", "Exito", javax.swing.JOptionPane.INFORMATION_MESSAGE);
             jTextCedula.setText("");

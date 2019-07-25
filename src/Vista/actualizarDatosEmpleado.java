@@ -68,22 +68,31 @@ public class actualizarDatosEmpleado extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jLabelCedula.setForeground(new java.awt.Color(0, 0, 255));
         jLabelCedula.setText("Cedula:");
 
+        jLabel2.setForeground(new java.awt.Color(0, 0, 255));
         jLabel2.setText("Nombre:");
 
+        jLabel3.setForeground(new java.awt.Color(0, 0, 255));
         jLabel3.setText("Apellido:");
 
+        jLabel4.setForeground(new java.awt.Color(0, 0, 255));
         jLabel4.setText("Direccion:");
 
+        jLabel5.setForeground(new java.awt.Color(0, 0, 255));
         jLabel5.setText("Tel.Convencional");
 
+        jLabel6.setForeground(new java.awt.Color(0, 0, 255));
         jLabel6.setText("Tel.Celular");
 
+        jLabel7.setForeground(new java.awt.Color(0, 0, 255));
         jLabel7.setText("Usuario:");
 
+        jLabel8.setForeground(new java.awt.Color(0, 0, 255));
         jLabel8.setText("Contraseña");
 
+        jLabel9.setForeground(new java.awt.Color(0, 0, 255));
         jLabel9.setText("Cargo");
 
         jButtonActualizarDatos.setText("Actualizar Datos");
@@ -191,7 +200,7 @@ public class actualizarDatosEmpleado extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(info2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(info, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE))
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGap(0, 42, Short.MAX_VALUE)))
                         .addContainerGap())))
         );
         layout.setVerticalGroup(

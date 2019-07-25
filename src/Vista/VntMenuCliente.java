@@ -138,7 +138,8 @@ cp.add(imagenTablero);
           }
           
             private void llamarAgregarCliente() {
-               VntCliente  cliente=new VntCliente(user);
+                int a = 1;
+               VntCliente  cliente=new VntCliente(user,a);
                cliente.setVisible(true);
                setVisible(false);
     }

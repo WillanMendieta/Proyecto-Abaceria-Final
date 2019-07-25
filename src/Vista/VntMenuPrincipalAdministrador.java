@@ -287,7 +287,7 @@ cp.add(imagenTablero);
     }
 
     private void llamarRealizarFactura() {
-        AddRowJTable factura = new AddRowJTable(user);
+        Facturacion factura = new Facturacion(user);
               factura.setVisible(true);
                setVisible(false);
    
