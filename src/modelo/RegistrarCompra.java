@@ -19,6 +19,16 @@ public class RegistrarCompra {
     private Producto producto;
     private Proveedor proveedor;
 
+    public RegistrarCompra() {
+        this.id = 0;
+        this.numeroFactura = 0;
+        this.cantidadProd = 0;
+        this.idProveedores = 0;
+        this.idProductos = 0;
+        this.producto = producto;
+        this.proveedor = proveedor;
+    }
+    
     public int getId() {
         return id;
     }
