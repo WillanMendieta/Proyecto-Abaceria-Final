@@ -31,7 +31,6 @@ public class VntMenuCliente extends JFrame implements ActionListener {
       public VntMenuCliente (Usuario usuario){
     Componentes();
     user = usuario;
-    
 }
 
     private void Componentes() {
