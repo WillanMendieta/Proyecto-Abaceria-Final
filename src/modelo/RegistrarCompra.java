@@ -82,6 +82,11 @@ public class RegistrarCompra {
     public void setProveedor(Proveedor proveedor) {
         this.proveedor = proveedor;
     }
+
+    @Override
+    public String toString() {
+        return "RegistrarCompra{" + "id=" + id + ", fechaIngreso=" + fechaIngreso + ", numeroFactura=" + numeroFactura + ", cantidadProd=" + cantidadProd + ", idProveedores=" + idProveedores + ", idProductos=" + idProductos + ", producto=" + producto + ", proveedor=" + proveedor + '}';
+    }
     
     
     
