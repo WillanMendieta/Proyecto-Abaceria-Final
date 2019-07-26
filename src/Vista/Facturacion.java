@@ -984,8 +984,8 @@ public class Facturacion extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "No has seleccionado un registro");
         }
-        
     }
+    
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

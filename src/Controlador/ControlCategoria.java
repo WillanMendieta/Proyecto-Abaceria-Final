@@ -28,10 +28,9 @@ public class ControlCategoria {
        
         try {
             psentencia= con.getConexion().prepareStatement("INSERT INTO "
-                    + "aba_categorias VALUES (?,?,?)");
-            psentencia.setInt(1, codd);
-            psentencia.setString(2, nombre);
-            psentencia.setString(3, estado);
+                    + "aba_categorias VALUES (cat_id_seq.nextval,?,?)");
+            psentencia.setString(1, nombre);
+            psentencia.setString(2, estado);
             
             ///Se debe ejecutar la sentencia de Insert
             psentencia.executeUpdate();

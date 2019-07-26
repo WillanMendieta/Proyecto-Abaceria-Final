@@ -223,18 +223,19 @@ public class ControlProducto {
     public void agregarProductoNuevo(conexionDB con, int codd, String nom, int des, double pree, int stock, String iva, int nombreCat, String estado, String tipo, String descrip) {
      try {
             psentencia= con.getConexion().prepareStatement("INSERT INTO "
-                    + "aba_productos VALUES (?,?,?,?,?,?,?,?,?,?)");
-            psentencia.setInt(1, codd);
-            psentencia.setString(2, nom);
-            psentencia.setInt(3, des);
-            psentencia.setDouble(4, pree);
-            psentencia.setInt(5, stock);
+                    + "aba_productos VALUES (pro_id_seq.nextval,?,?,?,?,?,?,?,?,?)");
+            //psentencia.setInt(1, codd);
+            psentencia.setString(1, nom);
+            psentencia.setInt(2, des);
+            psentencia.setDouble(3, pree);
+            psentencia.setInt(4, stock);
             
-            psentencia.setString(6, iva);
-            psentencia.setInt(7, nombreCat);
-            psentencia.setString(8, estado);
-            psentencia.setString(9, tipo);
-            psentencia.setString(10, descrip);
+            psentencia.setString(5, iva);
+            psentencia.setInt(6, nombreCat);
+            psentencia.setString(7, estado);
+            psentencia.setString(8, tipo);
+            psentencia.setString(9, descrip);
+            
             
             ///Se debe ejecutar la sentencia de Insert
             psentencia.executeUpdate();
