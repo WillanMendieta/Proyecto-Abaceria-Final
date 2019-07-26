@@ -79,8 +79,6 @@ public class ControlProducto {
         
     }
     
-    
-    
     public Producto buscarProducto (conexionDB con, int codigo){
         Producto pro = new Producto();
        // GestionPersona gp = new GestionPersona();
@@ -161,40 +159,7 @@ public class ControlProducto {
         return categorias;    
     }
 
-    /*
-    public void agregarProductoNuevo(conexionDB con, int codd, String nom, String cat, double pree, String iva) {
-        try {
-            psentencia= con.getConexion().prepareStatement("INSERT INTO "
-                    + "aba_productos VALUES (?,?,?)");
-            psentencia.setInt(1, codd);
-            psentencia.setString(2, nombre);
-            psentencia.setString(3, estado);
-            
-            ///Se debe ejecutar la sentencia de Insert
-            psentencia.executeUpdate();
-            
-            /*
-            System.out.println("1. Commit "
-                    + " 2. RollBack");
-            Scanner sc = new Scanner(System.in);
-            int opcion= sc.nextInt();
-            
-            if(opcion == 1){
-                con.getConexion().commit();
-            }
-            else{
-                con.getConexion().rollback();
-            }
-            
-            
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        
-    }
-*/
-    
-    
+   
     
     public Categoria buscaCategoriaNombre(conexionDB con, String nombre) {
         Categoria cate = new Categoria();
