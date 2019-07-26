@@ -111,25 +111,13 @@ public class VntLogin extends JFrame implements ActionListener{
           switch(comando){
            case"Iniciar Sesión":
                
-               
-               
                String valorUser =  usuarioIn.getText();
                String valorPass = new String(Password.getPassword());
+               System.out.println(" inicia coneccion");
                
-              // con.setUrl("jdbc:oracle:thin:@localhost:1521:orcl");
-        //con.setUsername(valorUser);
-        //con.setPassword(valorPass);
-        
-        con.Conectar();
-        if(con.getConexion()!= null){
-            System.out.println("Base de datos conectada");
-         
-           // con.CerrarConexion();}
-             //  System.out.println(" inicia coneccion");
-               
-          //    con.Conectar();
-            //  System.out.println("entra a buscar empleado");
-              // System.out.println("datos del empleado ingresado: " + valorUser + " " + valorPass );
+              con.Conectar();
+              System.out.println("entra a buscar empleado");
+               System.out.println("datos del empleado ingresado: " + valorUser + " " + valorPass );
               user = perControl.buscarEmpleado(con, valorUser , valorPass);
               
               con.CerrarConexion();
@@ -163,5 +151,4 @@ public class VntLogin extends JFrame implements ActionListener{
         }
     }
 
-}
 }

@@ -28,7 +28,7 @@ public class ControlCategoria {
        
         try {
             psentencia= con.getConexion().prepareStatement("INSERT INTO "
-                    + "wmendietaaba.aba_categorias VALUES (?,?,?)");
+                    + "aba_categorias VALUES (?,?,?)");
             psentencia.setInt(1, codd);
             psentencia.setString(2, nombre);
             psentencia.setString(3, estado);

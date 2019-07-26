@@ -44,7 +44,7 @@ public class ControlProducto {
         ArrayList<Producto> productos = new ArrayList<>();
         try {
             psentencia = con.getConexion().prepareStatement("SELECT *"
-                          + " FROM wmendietaaba.aba_productos");
+                          + " FROM aba_productos");
             resultado = psentencia.executeQuery();
 
             //Se presenta el resultado
